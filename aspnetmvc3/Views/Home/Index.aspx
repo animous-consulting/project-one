@@ -1,12 +1,26 @@
-<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-	<title></title>
-</head>
-<body>
-	<div>
-		<%= Html.Encode(ViewData["Message"]) %>
-	</div>
-</body>
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<aspnetmvc3.Models.User>
+
+<h2>Index</h2>
+
+<table>
+<tr>
+<th>User ID</th>
+<th>User Name</th>
+<th>Email</th>
+</tr>
+
+@foreach (var item in Model) {
+	<tr>
+		<td>@Html.DisplayFor(x =>  item.UserID)</td>
+		<td>@Html.DisplayFor(x => item.UserName)</td>
+		<td>@Html.DisplayFor(x => item.UserEmail)</td>
+	</tr>
+}
+
+</table>
 

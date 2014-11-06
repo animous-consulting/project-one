@@ -5,14 +5,19 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
 
+using aspnetmvc3.DAL;
+
 namespace aspnetmvc3.Controllers
 {
 	public class HomeController : Controller
 	{
+
+		DBContext db = new DBContext();
+
 		public ActionResult Index ()
 		{
-			ViewData ["Message"] = "Welcome to ASP.NET MVC on Mono!";
-			return View ();
+
+			return View (db.Users.ToList());
 		}
 	}
 }

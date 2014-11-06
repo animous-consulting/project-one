@@ -3,5 +3,22 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@model IEnumerable<aspnetmvc3.Models.User>
+
 <h2>Index</h2>
+
+<table>
+	<tr>
+		<th>User ID</th>
+		<th>User Name</th>
+	</tr>
+	@foreach (var item in Model) {
+	<tr>
+		<td>@Html.DisplayFor(m => item.UserID)</td>
+		<td>@Html.DisplayFor(m => item.UserName)</td>
+	</tr>
+	}
+</table>
+
+
 
