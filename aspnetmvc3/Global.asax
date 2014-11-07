@@ -1,1 +1,1 @@
-<%@ Application Inherits="aspnetmvc3.MvcApplication" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="aspnetmvc3.MvcApplication" Language="C#" %>

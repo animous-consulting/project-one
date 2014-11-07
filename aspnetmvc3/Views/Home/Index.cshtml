@@ -4,21 +4,23 @@
 }
 
 @model IEnumerable<aspnetmvc3.Models.User>
-
 <h2>Index</h2>
 
 <table>
-	<tr>
-		<th>User ID</th>
-		<th>User Name</th>
-	</tr>
-	@foreach (var item in Model) {
-	<tr>
-		<td>@Html.DisplayFor(m => item.UserID)</td>
-		<td>@Html.DisplayFor(m => item.UserName)</td>
-	</tr>
-	}
+    <tr>
+        <th>User ID</th>
+        <th>User Name</th>
+        <th>Email Address</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.UserID</td>
+            <td>@item.UserName</td>
+            <td>@item.EmailAddress</td>
+
+        </tr>
+    }
+
 </table>
-
-
-
