@@ -29,3 +29,47 @@ C:\Users\Anggi Prima N Lbs\Documents\AaLubis-Workshop\aspnetmvc4\aspnetmvc4\aspn
 C:\Users\Anggi Prima N Lbs\Documents\AaLubis-Workshop\aspnetmvc4\aspnetmvc4\aspnetmvc4\obj\Debug\aspnetmvc4.pdb
 C:\Users\Anggi Prima N Lbs\Documents\AaLubis-Workshop\aspnetmvc4\aspnetmvc4\aspnetmvc4\bin\EntityFramework.SqlServer.dll
 C:\Users\Anggi Prima N Lbs\Documents\AaLubis-Workshop\aspnetmvc4\aspnetmvc4\aspnetmvc4\bin\EntityFramework.SqlServer.xml
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\aspnetmvc4.dll.config
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\aspnetmvc4.dll
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\aspnetmvc4.pdb
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\Antlr3.Runtime.dll
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\dotless.Core.dll
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\EntityFramework.dll
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\EntityFramework.SqlServer.dll
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\Microsoft.Web.Optimization.dll
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\Newtonsoft.Json.dll
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\System.Net.Http.Formatting.dll
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\System.Web.Helpers.dll
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\System.Web.Http.dll
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\System.Web.Http.WebHost.dll
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\System.Web.Mvc.dll
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\System.Web.Optimization.dll
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\System.Web.Optimization.Less.dll
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\System.Web.Razor.dll
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\System.Web.WebPages.Deployment.dll
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\System.Web.WebPages.dll
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\System.Web.WebPages.Razor.dll
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\WebActivator.dll
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\WebGrease.dll
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\Antlr3.Runtime.pdb
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\EntityFramework.xml
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\EntityFramework.SqlServer.xml
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\Newtonsoft.Json.xml
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\System.Web.Optimization.xml
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\System.Web.Optimization.Less.pdb
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\System.Web.Optimization.Less.xml
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\System.Net.Http.Formatting.xml
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\System.Web.Helpers.xml
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\System.Web.Http.xml
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\System.Web.Http.WebHost.xml
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\System.Web.Mvc.xml
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\System.Web.Razor.xml
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\System.Web.WebPages.xml
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\System.Web.WebPages.Deployment.xml
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\System.Web.WebPages.Razor.xml
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\obj\Debug\aspnetmvc4.csprojResolveAssemblyReference.cache
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\obj\Debug\aspnetmvc4.dll
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\obj\Debug\aspnetmvc4.pdb
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\MySql.Data.dll
+C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\mysql.data.entity.EF6.dll
