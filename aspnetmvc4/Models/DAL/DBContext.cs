@@ -1,26 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Web;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml;
+using MySql.Data;
+using MySql.Data.MySqlClient;
+using MySql.Data.Entity;
 using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using System.Data.Entity.ModelConfiguration.Configuration;
+using System.Data.Common;
+
 
 using aspnetmvc4.Models;
+using aspnetmvc4.DAL;
 
 namespace aspnetmvc4.DAL
-
-    
 {
-   // [DbConfigurationType(GetType(MySql.Data.Entity.MySqlEFConfiguration))]
-
-    [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
+    [DbConfigurationType(typeof(MySqlEFConfiguration))]
+    //[DbConfigurationType(GetType(MySql.Data.Entity.MySqlEFConfiguration))]
     public class DBContext : DbContext
     {
 
-        public DBContext()
-            : base("myConn")
+        public DBContext() : base("myConn")
         {
-            
             this.Configuration.ValidateOnSaveEnabled = false;
         }
 
@@ -29,7 +36,6 @@ namespace aspnetmvc4.DAL
             DbConfiguration.SetConfiguration(new MySql.Data.Entity.MySqlEFConfiguration());
         }
 
-        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -37,5 +43,6 @@ namespace aspnetmvc4.DAL
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
 
+        public DbSet<User> Users { get; set; }
     }
 }

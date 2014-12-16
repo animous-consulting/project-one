@@ -1,7 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aspnetmvc4", "aspnetmvc4\aspnetmvc4.csproj", "{56713444-6F69-4CB0-961D-A9E4EF64B2BB}"
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PengKep", "PengKep\PengKep.csproj", "{A9B4FA1F-0DDA-4665-9ADD-E164CAE393DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{56713444-6F69-4CB0-961D-A9E4EF64B2BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{56713444-6F69-4CB0-961D-A9E4EF64B2BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{56713444-6F69-4CB0-961D-A9E4EF64B2BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{56713444-6F69-4CB0-961D-A9E4EF64B2BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9B4FA1F-0DDA-4665-9ADD-E164CAE393DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9B4FA1F-0DDA-4665-9ADD-E164CAE393DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9B4FA1F-0DDA-4665-9ADD-E164CAE393DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9B4FA1F-0DDA-4665-9ADD-E164CAE393DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -73,3 +73,39 @@ C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\obj\Debug\aspnetmvc4.dll
 C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\obj\Debug\aspnetmvc4.pdb
 C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\MySql.Data.dll
 C:\Users\astondihor\Source\Repos\project-one\aspnetmvc4\bin\mysql.data.entity.EF6.dll
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\obj\Debug\aspnetmvc4.csprojResolveAssemblyReference.cache
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\bin\aspnetmvc4.dll.config
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\bin\aspnetmvc4.dll
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\bin\aspnetmvc4.pdb
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\bin\Antlr3.Runtime.dll
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\bin\EntityFramework.dll
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\bin\EntityFramework.SqlServer.dll
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\bin\MvcReportViewer.dll
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\bin\MySql.Data.Entity.EF6.dll
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\bin\Newtonsoft.Json.dll
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\bin\System.Net.Http.Formatting.dll
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\bin\System.Web.Helpers.dll
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\bin\System.Web.Http.dll
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\bin\System.Web.Http.WebHost.dll
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\bin\System.Web.Optimization.dll
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\bin\System.Web.Razor.dll
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\bin\System.Web.WebPages.dll
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\bin\System.Web.WebPages.Razor.dll
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\bin\WebGrease.dll
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\bin\Antlr3.Runtime.pdb
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\bin\EntityFramework.xml
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\bin\EntityFramework.SqlServer.xml
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\bin\Newtonsoft.Json.xml
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\bin\System.Net.Http.Formatting.xml
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\bin\System.Web.Helpers.xml
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\bin\System.Web.Http.xml
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\bin\System.Web.Http.WebHost.xml
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\bin\System.Web.Optimization.xml
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\bin\System.Web.Razor.xml
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\bin\System.Web.WebPages.xml
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\bin\System.Web.WebPages.Razor.xml
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\obj\Debug\aspnetmvc4.dll
+C:\Users\Aston Dihor\Documents\GitHub\project-one\aspnetmvc4\obj\Debug\aspnetmvc4.pdb
