@@ -57,7 +57,6 @@ namespace PengKep.Entities
         [MaxLength(50)]
         public string LastUpdateRemark { get; set; }
 
-        public virtual ICollection<OrganizationUnitMap> OrganizationUnitMap { get; set; }
 
     }
 }

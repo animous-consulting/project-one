@@ -49,35 +49,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Account.cs" />
-    <Compile Include="ActualActivity.cs" />
-    <Compile Include="ActualExpense.cs" />
-    <Compile Include="ActualVarianceExplanation.cs" />
     <Compile Include="Approval.cs" />
     <Compile Include="ApprovalAction.cs" />
     <Compile Include="ApprovalHistory.cs" />
     <Compile Include="ApprovalStatus.cs" />
-    <Compile Include="Asset.cs" />
     <Compile Include="Company.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="ErrorLog.cs" />
     <Compile Include="Expense.cs" />
     <Compile Include="ExpenseCategory.cs" />
-    <Compile Include="ExpenseElement.cs" />
-    <Compile Include="ForecastActivity.cs" />
-    <Compile Include="ForecastExpense.cs" />
-    <Compile Include="ForecastVarianceExplanation.cs" />
     <Compile Include="OrganizationUnit.cs" />
-    <Compile Include="OrganizationUnitMap.cs" />
-    <Compile Include="PMActivity.cs" />
     <Compile Include="PMExpense.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Role.cs" />
-    <Compile Include="User.cs" />
-    <Compile Include="UserRole.cs" />
-    <Compile Include="Variance.cs" />
-    <Compile Include="VarianceTbl.cs" />
-    <Compile Include="VarianceThreshold.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

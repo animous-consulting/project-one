@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PengKep.UI", "PengKep\PengKep.UI.csproj", "{A9B4FA1F-0DDA-4665-9ADD-E164CAE393DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PengKep.UI", "PengKep.UI\PengKep.UI.csproj", "{A9B4FA1F-0DDA-4665-9ADD-E164CAE393DD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PengKep.Entities", "PengKep.Entities\PengKep.Entities.csproj", "{289EFC10-0C0B-4715-9C23-1C4F786CE473}"
 EndProject
