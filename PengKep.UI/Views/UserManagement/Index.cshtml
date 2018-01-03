@@ -1,0 +1,35 @@
+﻿@model IEnumerable<PengKep.Models.ApplicationUser>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>@Html.LabelFor(m => Model.FirstOrDefault().UserName)</th>
+                    <th>@Html.LabelFor(m => Model.FirstOrDefault().Email)</th>
+                    <th>@Html.LabelFor(m => Model.FirstOrDefault().EmailConfirmed)</th>
+                    <th>@Html.LabelFor(m => Model.FirstOrDefault().PhoneNumber)</th>
+                    <th>@Html.LabelFor(m => Model.FirstOrDefault().PhoneNumberConfirmed)</th>
+                    <th>@Model.FirstOrDefault().Roles.FirstOrDefault().RoleId</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(m => item.UserName)</td>
+                        <td>@Html.DisplayFor(m => item.Email)</td>
+                        <td>@Html.DisplayFor(m => item.EmailConfirmed)</td>
+                        <td>@Html.DisplayFor(m => item.PhoneNumber)</td>
+                        <td>@Html.DisplayFor(m => item.PhoneNumberConfirmed)</td>
+                        <td>@String.Join(";", item.Roles.Select(s => s.RoleId))</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
