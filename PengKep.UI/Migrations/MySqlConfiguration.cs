@@ -3,7 +3,7 @@ using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.Migrations.History;
 
-namespace PengKep.Migrations
+namespace PengKep
 {
     public class MySqlConfiguration : DbConfiguration
     {

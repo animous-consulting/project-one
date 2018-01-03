@@ -4,7 +4,7 @@ using System.Linq;
 
 using PengKep.Models;
 
-namespace PengKep.Migrations
+namespace PengKep
 {
     public class MySqlInitializer : IDatabaseInitializer<ApplicationDbContext>
     {
@@ -19,7 +19,7 @@ namespace PengKep.Migrations
             {
                 // query to check if MigrationHistory table is present in the database 
                 var migrationHistoryTableExists = ((IObjectContextAdapter)context).ObjectContext.ExecuteStoreQuery<int>(
-                  "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'IdentityMySQLDatabase' AND table_name = '__MigrationHistory'");
+                  "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'IdentityDb' AND table_name = '__MigrationHistory'");
 
                 // if MigrationHistory table is not there (which is the case first time we run) - create it
                 if (migrationHistoryTableExists.FirstOrDefault() == 0)

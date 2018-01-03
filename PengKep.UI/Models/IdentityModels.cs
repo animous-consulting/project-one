@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web;
+using System.Data;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -25,6 +26,10 @@ namespace PengKep.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        static ApplicationDbContext()
+        {
+            Database.SetInitializer(new MySqlInitializer());
+        }
         public ApplicationDbContext()
             : base("DbIdentityConnection", throwIfV1Schema: false)
         {
