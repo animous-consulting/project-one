@@ -48,26 +48,26 @@ namespace PengKep.Models
         //}
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class IdentityDBContext : IdentityDbContext<ApplicationUser>
     {
-        static ApplicationDbContext()
+        static IdentityDBContext()
         {
             Database.SetInitializer(new MySqlInitializer());
         }
-        public ApplicationDbContext()
+        public IdentityDBContext()
             : base("DbIdentityConnection", throwIfV1Schema: false)
         {
         }
 
-        public static ApplicationDbContext Create()
+        public static IdentityDBContext Create()
         {
-            return new ApplicationDbContext();
+            return new IdentityDBContext();
         }
     }
 
     public class ApplicationUserStore : UserStore<ApplicationUser>, IUserStore<ApplicationUser>
     {
-        public ApplicationUserStore(ApplicationDbContext dbContext)
+        public ApplicationUserStore(IdentityDBContext dbContext)
             : base(dbContext) { }
     }
 }

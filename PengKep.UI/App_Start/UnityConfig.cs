@@ -52,7 +52,7 @@ namespace PengKep
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
 
-            container.RegisterType<ApplicationDbContext>(new HierarchicalLifetimeManager());
+            container.RegisterType<IdentityDBContext>(new HierarchicalLifetimeManager());
             container.RegisterType<ApplicationSignInManager>();
             container.RegisterType<ApplicationUserManager>();
             container.RegisterType<IAuthenticationManager>(new InjectionFactory(c => HttpContext.Current.GetOwinContext().Authentication));

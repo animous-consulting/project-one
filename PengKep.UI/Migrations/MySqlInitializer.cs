@@ -6,9 +6,9 @@ using PengKep.Models;
 
 namespace PengKep
 {
-    public class MySqlInitializer : IDatabaseInitializer<ApplicationDbContext>
+    public class MySqlInitializer : IDatabaseInitializer<IdentityDBContext>
     {
-        public void InitializeDatabase(ApplicationDbContext context)
+        public void InitializeDatabase(IdentityDBContext context)
         {
             if (!context.Database.Exists())
             {
