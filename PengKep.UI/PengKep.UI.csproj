@@ -222,6 +222,7 @@
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageCompanyController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\UserManagementController.cs" />
     <Compile Include="Global.asax.cs">
@@ -314,6 +315,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\UserManagement\Index.cshtml" />
+    <Content Include="Views\ManageCompany\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -322,6 +324,20 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PengKep.Entities\PengKep.Entities.csproj">
+      <Project>{289efc10-0c0b-4715-9c23-1c4f786ce473}</Project>
+      <Name>PengKep.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PengKep.Interfaces\PengKep.Interfaces.csproj">
+      <Project>{bc3d5c0a-f9a8-47c5-9565-55da29d48578}</Project>
+      <Name>PengKep.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PengKep.Repositories\PengKep.Repositories.csproj">
+      <Project>{7abc593e-adcf-4c44-a359-27e5f0b0a178}</Project>
+      <Name>PengKep.Repositories</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

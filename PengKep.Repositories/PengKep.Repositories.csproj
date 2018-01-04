@@ -49,11 +49,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApprovalActionRepository.cs" />
+    <Compile Include="ApprovalHistoryRepository.cs" />
+    <Compile Include="ApprovalRepository.cs" />
+    <Compile Include="ApprovalStatusRepository.cs" />
+    <Compile Include="CompanyRepository.cs" />
+    <Compile Include="ConfigRepository.cs" />
+    <Compile Include="DBContext.cs" />
+    <Compile Include="ErrorLogRepository.cs" />
+    <Compile Include="ExpenseCategoryRepository.cs" />
+    <Compile Include="ExpenseRepository.cs" />
+    <Compile Include="GenericRepository.cs" />
+    <Compile Include="OrganizationUnitRepository.cs" />
+    <Compile Include="PMExpenseRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PengKep.Entities\PengKep.Entities.csproj">
+      <Project>{289efc10-0c0b-4715-9c23-1c4f786ce473}</Project>
+      <Name>PengKep.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PengKep.Interfaces\PengKep.Interfaces.csproj">
+      <Project>{bc3d5c0a-f9a8-47c5-9565-55da29d48578}</Project>
+      <Name>PengKep.Interfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -9,6 +9,8 @@ using Unity;
 using Unity.Injection;
 using Unity.Lifetime;
 
+using PengKep.Interfaces;
+using PengKep.Repositories;
 using PengKep.Models;
 
 namespace PengKep
@@ -52,11 +54,29 @@ namespace PengKep
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
 
+            // asp.net identity 2.0
             container.RegisterType<IdentityDBContext>(new HierarchicalLifetimeManager());
             container.RegisterType<ApplicationSignInManager>();
             container.RegisterType<ApplicationUserManager>();
             container.RegisterType<IAuthenticationManager>(new InjectionFactory(c => HttpContext.Current.GetOwinContext().Authentication));
             container.RegisterType<IUserStore<ApplicationUser>, ApplicationUserStore>();
+
+
+            // application
+            container.RegisterType<DBContext>(new HierarchicalLifetimeManager());
+            container.RegisterType<IUnitOfWork, UnitOfWork>(new HierarchicalLifetimeManager());
+
+            container.RegisterType<IApprovalActionRepository, ApprovalActionRepository>();
+            container.RegisterType<IApprovalHistoryRepository, ApprovalHistoryRepository>();
+            container.RegisterType<IApprovalRepository, ApprovalRepository>();
+            container.RegisterType<IApprovalStatusRepository, ApprovalStatusRepository>();
+            container.RegisterType<ICompanyRepository, CompanyRepository>();
+            container.RegisterType<IConfigRepository, ConfigRepository>();
+            container.RegisterType<IErrorLogRepository, ErrorLogRepository>();
+            container.RegisterType<IExpenseCategoryRepository, ExpenseCategoryRepository>();
+            container.RegisterType<IExpenseRepository, ExpenseRepository>();
+            container.RegisterType<IOrganizationUnitRepository, OrganizationUnitRepository>();
+            container.RegisterType<IPMExpenseRepository, PMExpenseRepository>();
 
         }
     }
