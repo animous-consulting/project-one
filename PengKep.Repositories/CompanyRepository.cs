@@ -12,7 +12,8 @@ namespace PengKep.Repositories
     {
 
 
-        public CompanyRepository(DBContext context)
+        public CompanyRepository(
+            DBContext context)
             : base(context)
         {
 

@@ -8,6 +8,7 @@ using PengKep.Interfaces;
 
 namespace PengKep.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class ManageCompanyController : Controller
     {
 

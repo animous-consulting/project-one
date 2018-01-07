@@ -11,6 +11,10 @@ namespace PengKep.Repositories
 {
     public class DBContext : DbContext
     {
+        static DBContext()
+        {
+            Database.SetInitializer<DBContext>(new DropCreateDatabaseIfModelChanges<DBContext>());
+        }
         public DBContext()
             : base("DbApplicationConnection")
         {
