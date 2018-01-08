@@ -5,8 +5,9 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using PengKep.Models;
 using System.Web.Mvc;
+
+using PengKep.Repositories;
 
 namespace PengKep
 {

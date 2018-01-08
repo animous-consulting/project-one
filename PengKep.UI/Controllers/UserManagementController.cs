@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
-using PengKep.Models;
+using PengKep.Repositories;
 
 namespace PengKep.Controllers
 {

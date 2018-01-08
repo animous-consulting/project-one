@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 using PengKep.Entities;
-using PengKep.Interfaces;
+using PengKep.Common.Interfaces;
 
 namespace PengKep.Repositories
 {

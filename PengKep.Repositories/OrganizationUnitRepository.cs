@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 using PengKep.Entities;
-using PengKep.Interfaces;
+using PengKep.Common.Interfaces;
+using PengKep.Common.Constants;
 
 namespace PengKep.Repositories
 {
@@ -12,51 +14,56 @@ namespace PengKep.Repositories
     {
 
         private ICompanyRepository companyRepository;
+        private UserManager<ApplicationUser> userManager;
 
         public OrganizationUnitRepository(DBContext context,
-            ICompanyRepository companyRepository)
+            ICompanyRepository companyRepository,
+            UserManager<ApplicationUser> userManager)
             : base(context)
         {
             this.companyRepository = companyRepository;
+            this.userManager = userManager;
         }
 
         public List<OrganizationUnit> GetAccessibleOrganizationUnit(string userId)
         {
-            //if (!userRepository.Get().Any(a => a.UserID.ToLower() == userId.ToLower() && a.IsActive == "Y")) return null;
-            //var userRoleIDs = userRoleRepository.Get().Where(w => w.UserID == userId).Select(s => s.RoleID).ToList();
+            List<OrganizationUnit> accessibleOrganizationUnits = new List<OrganizationUnit>();
+            var user = userManager.FindByEmail(userId);
+            if (user != null && (user.LockoutEnabled == false || user.LockoutEndDateUtc < DateTime.UtcNow))
+            {
 
-            //var allOrganizationUnits = this.Get().Where(w => w.IsActive == "Y").ToList();
+                var userRoleIDs = user.Roles.Select(s => s.RoleId).ToList();
+                var allOrganizationUnits = this.Get().Where(w => w.IsActive == "Y").ToList();
 
-            //var accessibleOrganizationUnitIDs = this.Get().Where(w => userRoleIDs.Contains(w.OrganizationUnitID) || userRoleIDs.Contains("ADM") && w.IsActive == "Y").Select(s => s.OrganizationUnitID).ToList();
-            //var accessibleCompanyIDs = companyRepository.GetAccessibleCompanies(userId).Select(s => s.CompanyID).ToList();
+                var accessibleOrganizationUnitIDs = this.Get().Where(w => userRoleIDs.Contains(w.OrganizationUnitID) || userRoleIDs.Contains(ApplicationConstants.roleIDAdministrator) && w.IsActive == "Y").Select(s => s.OrganizationUnitID).ToList();
+                var accessibleCompanyIDs = companyRepository.GetAccessibleCompanies(userId).Select(s => s.CompanyID).ToList();
 
-            //char[] spliter = new char[] { ';' };
+                char[] spliter = new char[] { ';' };
 
-            //// switch to below code for faster performance
-            //while (
-            //    (from q in allOrganizationUnits
-            //     where accessibleOrganizationUnitIDs.Contains(q.OrganizationUnitParentID) &&
-            //     !accessibleOrganizationUnitIDs.Contains(q.OrganizationUnitID) &&
-            //     accessibleCompanyIDs.Intersect(q.CompanyTag.Split(spliter)).Any()
-            //     select q.OrganizationUnitID).Any())
-            //{
-            //    accessibleOrganizationUnitIDs = accessibleOrganizationUnitIDs.Union(
-            //            (from q in allOrganizationUnits
-            //             where accessibleOrganizationUnitIDs.Contains(q.OrganizationUnitParentID) &&
-            //             !accessibleOrganizationUnitIDs.Contains(q.OrganizationUnitID) &&
-            //             accessibleCompanyIDs.Intersect(q.CompanyTag.Split(spliter)).Any()
-            //             select q.OrganizationUnitID).ToList()
-            //        ).ToList();
-            //}
+                // switch to below code for faster performance
+                while (
+                    (from q in allOrganizationUnits
+                     where accessibleOrganizationUnitIDs.Contains(q.OrganizationUnitParentID) &&
+                     !accessibleOrganizationUnitIDs.Contains(q.OrganizationUnitID) &&
+                     accessibleCompanyIDs.Intersect(q.CompanyTag.Split(spliter)).Any()
+                     select q.OrganizationUnitID).Any())
+                {
+                    accessibleOrganizationUnitIDs = accessibleOrganizationUnitIDs.Union(
+                            (from q in allOrganizationUnits
+                             where accessibleOrganizationUnitIDs.Contains(q.OrganizationUnitParentID) &&
+                             !accessibleOrganizationUnitIDs.Contains(q.OrganizationUnitID) &&
+                             accessibleCompanyIDs.Intersect(q.CompanyTag.Split(spliter)).Any()
+                             select q.OrganizationUnitID).ToList()
+                        ).ToList();
+                }
 
-            //var accessibleOrganizationUnits =
-            //    (from q in allOrganizationUnits
-            //     where accessibleOrganizationUnitIDs.Contains(q.OrganizationUnitID)
-            //     select q).ToList();
+                accessibleOrganizationUnits =
+                    (from q in allOrganizationUnits
+                     where accessibleOrganizationUnitIDs.Contains(q.OrganizationUnitID)
+                     select q).ToList();
+            }
 
-            //return accessibleOrganizationUnits.ToList();
-
-            return new List<OrganizationUnit>();
+            return accessibleOrganizationUnits.ToList();
         }
 
         public List<OrganizationUnit> GetOrganizationUnitChildren(string organizationUnitId, List<string> companyIDs)

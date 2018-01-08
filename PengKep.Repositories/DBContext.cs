@@ -4,7 +4,7 @@ using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
-using PengKep.Interfaces;
+using PengKep.Common.Interfaces;
 using PengKep.Entities;
 
 namespace PengKep.Repositories

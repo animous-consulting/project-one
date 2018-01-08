@@ -228,12 +228,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\MySqlConfiguration.cs" />
-    <Compile Include="Migrations\MySqlHistoryContext.cs" />
-    <Compile Include="Migrations\MySqlInitializer.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="ViewModels\AccountViewModels.cs" />
+    <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -319,6 +315,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Migrations\" />
     <Folder Include="Scripts\controllers\" />
   </ItemGroup>
   <ItemGroup>
@@ -330,9 +327,9 @@
       <Project>{289efc10-0c0b-4715-9c23-1c4f786ce473}</Project>
       <Name>PengKep.Entities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PengKep.Interfaces\PengKep.Interfaces.csproj">
+    <ProjectReference Include="..\PengKep.Interfaces\PengKep.Common.csproj">
       <Project>{bc3d5c0a-f9a8-47c5-9565-55da29d48578}</Project>
-      <Name>PengKep.Interfaces</Name>
+      <Name>PengKep.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\PengKep.Repositories\PengKep.Repositories.csproj">
       <Project>{7abc593e-adcf-4c44-a359-27e5f0b0a178}</Project>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-using PengKep.Interfaces;
+using PengKep.Common.Interfaces;
 using PengKep.Entities;
 
 namespace PengKep.Repositories

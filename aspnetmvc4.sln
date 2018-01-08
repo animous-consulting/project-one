@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PengKep.Entities", "PengKep
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PengKep.Repositories", "PengKep.Repositories\PengKep.Repositories.csproj", "{7ABC593E-ADCF-4C44-A359-27E5F0B0A178}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PengKep.Interfaces", "PengKep.Interfaces\PengKep.Interfaces.csproj", "{BC3D5C0A-F9A8-47C5-9565-55DA29D48578}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PengKep.Common", "PengKep.Interfaces\PengKep.Common.csproj", "{BC3D5C0A-F9A8-47C5-9565-55DA29D48578}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

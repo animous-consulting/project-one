@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PengKep.Interfaces
+namespace PengKep.Common.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {

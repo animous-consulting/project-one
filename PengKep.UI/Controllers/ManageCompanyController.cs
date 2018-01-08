@@ -4,11 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-using PengKep.Interfaces;
+using PengKep.Common.Interfaces;
 
 namespace PengKep.Controllers
 {
-    [Authorize(Roles = "Administrator")]
     public class ManageCompanyController : Controller
     {
 
@@ -23,9 +22,8 @@ namespace PengKep.Controllers
         // GET: ManageCompany
         public ActionResult Index()
         {
-            var model =
-                (from q in companyRepository.Get()
-                 select q).ToList();
+            var model = companyRepository.GetAccessibleCompanies(User.Identity.Name);
+               
             return View(model);
         }
     }

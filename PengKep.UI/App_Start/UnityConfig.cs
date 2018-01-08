@@ -9,9 +9,8 @@ using Unity;
 using Unity.Injection;
 using Unity.Lifetime;
 
-using PengKep.Interfaces;
+using PengKep.Common.Interfaces;
 using PengKep.Repositories;
-using PengKep.Models;
 
 namespace PengKep
 {

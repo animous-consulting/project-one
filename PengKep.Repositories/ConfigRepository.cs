@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 using PengKep.Entities;
-using PengKep.Interfaces;
+using PengKep.Common.Interfaces;
 
 namespace PengKep.Repositories
 {

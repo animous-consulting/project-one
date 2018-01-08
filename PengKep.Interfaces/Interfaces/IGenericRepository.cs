@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace PengKep.Interfaces
+namespace PengKep.Common.Interfaces
 {
     public interface IGenericRepository<TEntity> where TEntity : class
     {

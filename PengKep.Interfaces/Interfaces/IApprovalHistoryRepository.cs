@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using PengKep.Entities;
 
-namespace PengKep.Interfaces
+namespace PengKep.Common.Interfaces
 {
     public interface IApprovalHistoryRepository : IGenericRepository<ApprovalHistory>
     {

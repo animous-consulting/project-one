@@ -2,9 +2,7 @@
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 
-using PengKep.Models;
-
-namespace PengKep
+namespace PengKep.Repositories
 {
     public class MySqlInitializer : IDatabaseInitializer<IdentityDBContext>
     {

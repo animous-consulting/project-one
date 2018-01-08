@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
-namespace PengKep.Models
+namespace PengKep.ViewModels
 {
     public class IndexViewModel
     {

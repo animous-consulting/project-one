@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Common;
 
-namespace PengKep.Interfaces
+namespace PengKep.Common.Interfaces
 {
     public interface IConnection
     {

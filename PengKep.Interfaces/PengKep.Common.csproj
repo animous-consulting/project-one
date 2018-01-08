@@ -7,8 +7,8 @@
     <ProjectGuid>{BC3D5C0A-F9A8-47C5-9565-55DA29D48578}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PengKep.Interfaces</RootNamespace>
-    <AssemblyName>PengKep.Interfaces</AssemblyName>
+    <RootNamespace>PengKep.Common</RootNamespace>
+    <AssemblyName>PengKep.Common</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\ApplicationConstants.cs" />
     <Compile Include="Interfaces\IApprovalActionRepository.cs" />
     <Compile Include="Interfaces\IApprovalHistoryRepository.cs" />
     <Compile Include="Interfaces\IApprovalRepository.cs" />
