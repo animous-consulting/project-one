@@ -78,15 +78,10 @@ namespace PengKep
             var dataProtectionProvider = Startup.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
-                this.UserTokenProvider = 
+                this.UserTokenProvider =
                     new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
         }
-
-        //public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
-        //{
-        //    return manager;
-        //}
     }
 
     // Configure the application sign-in manager which is used in this application.
@@ -101,12 +96,15 @@ namespace PengKep
         {
             return user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager);
         }
-
-        //public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options, IOwinContext context)
-        //{
-        //    return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
-        //}
     }
 
-   
+    public class ApplicationRoleManager : RoleManager<ApplicationRole, string>
+    {
+        public ApplicationRoleManager(IRoleStore<ApplicationRole> store)
+            : base(store)
+        {
+        }
+    }
+
+
 }

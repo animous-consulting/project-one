@@ -45,6 +45,10 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -130,6 +134,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -213,6 +218,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -232,6 +238,16 @@
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\Mapped\ApprovalActionViewModel.cs" />
+    <Compile Include="ViewModels\Mapped\ApprovalHistoryViewModel.cs" />
+    <Compile Include="ViewModels\Mapped\ApprovalStatusViewModel.cs" />
+    <Compile Include="ViewModels\Mapped\ApprovalViewModel.cs" />
+    <Compile Include="ViewModels\Mapped\CompanyViewModel.cs" />
+    <Compile Include="ViewModels\Mapped\ExpenseCategoryViewModel.cs" />
+    <Compile Include="ViewModels\Mapped\ExpenseViewModel.cs" />
+    <Compile Include="ViewModels\Mapped\OrganizationUnitViewModel.cs" />
+    <Compile Include="ViewModels\Mapped\PMExpenseViewModel.cs" />
+    <Compile Include="ViewModels\Mapped\ApplicationUserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\abn_tree.min.css" />

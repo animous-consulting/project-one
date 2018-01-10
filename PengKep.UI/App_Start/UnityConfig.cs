@@ -59,7 +59,7 @@ namespace PengKep
             container.RegisterType<ApplicationUserManager>();
             container.RegisterType<IAuthenticationManager>(new InjectionFactory(c => HttpContext.Current.GetOwinContext().Authentication));
             container.RegisterType<IUserStore<ApplicationUser>, ApplicationUserStore>();
-
+            container.RegisterType<IRoleStore<ApplicationRole>, ApplicationRoleStore>();
 
             // application
             container.RegisterType<DBContext>(new HierarchicalLifetimeManager());
