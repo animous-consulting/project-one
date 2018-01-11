@@ -9,6 +9,7 @@ using Unity;
 using Unity.Injection;
 using Unity.Lifetime;
 
+using PengKep.BusinessEntities;
 using PengKep.Common.Interfaces;
 using PengKep.Repositories;
 

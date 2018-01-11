@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using PengKep.Entities;
+using PengKep.BusinessEntities;
 using PengKep.Common.Interfaces;
 
 namespace PengKep.Repositories

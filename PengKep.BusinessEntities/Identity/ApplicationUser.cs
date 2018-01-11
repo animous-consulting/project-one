@@ -1,34 +1,15 @@
 ﻿using System;
-using System.Web;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data;
-using System.Data.Entity;
+using System.Linq;
+using System.Text;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace PengKep.Repositories
+namespace PengKep.BusinessEntities
 {
-
-    public class IdentityDBContext : IdentityDbContext<ApplicationUser>
-    {
-        static IdentityDBContext()
-        {
-            Database.SetInitializer(new MySqlInitializer());
-        }
-        public IdentityDBContext()
-            : base("DbIdentityConnection", throwIfV1Schema: false)
-        {
-        }
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-        }
-    }
-
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
@@ -60,22 +41,4 @@ namespace PengKep.Repositories
             }
         }
     }
-
-    public class ApplicationRole : IdentityRole
-    {
-        public string Description { get; set; }
-    }
-
-    public class ApplicationUserStore : UserStore<ApplicationUser>, IUserStore<ApplicationUser>
-    {
-        public ApplicationUserStore(IdentityDBContext dbContext)
-            : base(dbContext) { }
-    }
-
-    public class ApplicationRoleStore : RoleStore<ApplicationRole>, IRoleStore<ApplicationRole>
-    {
-        public ApplicationRoleStore(IdentityDBContext dbContext)
-            : base(dbContext) { }
-    }
-
 }

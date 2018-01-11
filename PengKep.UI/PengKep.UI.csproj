@@ -234,6 +234,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AntiForgeryExtension.cs" />
+    <Compile Include="Helpers\ValidateCustomAntiForgeryToken.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -248,6 +250,7 @@
     <Compile Include="ViewModels\Mapped\OrganizationUnitViewModel.cs" />
     <Compile Include="ViewModels\Mapped\PMExpenseViewModel.cs" />
     <Compile Include="ViewModels\Mapped\ApplicationUserViewModel.cs" />
+    <Compile Include="ViewModels\RoleViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\abn_tree.min.css" />
@@ -339,9 +342,9 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PengKep.Entities\PengKep.Entities.csproj">
+    <ProjectReference Include="..\PengKep.BusinessEntities\PengKep.BusinessEntities.csproj">
       <Project>{289efc10-0c0b-4715-9c23-1c4f786ce473}</Project>
-      <Name>PengKep.Entities</Name>
+      <Name>PengKep.BusinessEntities</Name>
     </ProjectReference>
     <ProjectReference Include="..\PengKep.Interfaces\PengKep.Common.csproj">
       <Project>{bc3d5c0a-f9a8-47c5-9565-55da29d48578}</Project>

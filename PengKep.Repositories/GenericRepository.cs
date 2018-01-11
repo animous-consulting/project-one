@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Linq.Expressions;
 
-using PengKep.Entities;
+using PengKep.BusinessEntities;
 using PengKep.Common.Interfaces;
 
 namespace PengKep.Repositories

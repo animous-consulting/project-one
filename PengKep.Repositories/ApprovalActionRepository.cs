@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using PengKep.Entities;
+using PengKep.BusinessEntities;
 using PengKep.Common.Interfaces;
 
 namespace PengKep.Repositories

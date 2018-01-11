@@ -58,9 +58,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PengKep.Entities\PengKep.Entities.csproj">
+    <ProjectReference Include="..\PengKep.BusinessEntities\PengKep.BusinessEntities.csproj">
       <Project>{289efc10-0c0b-4715-9c23-1c4f786ce473}</Project>
-      <Name>PengKep.Entities</Name>
+      <Name>PengKep.BusinessEntities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

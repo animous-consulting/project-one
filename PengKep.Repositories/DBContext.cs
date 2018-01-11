@@ -5,7 +5,7 @@ using System.Data.Entity.ModelConfiguration;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
 using PengKep.Common.Interfaces;
-using PengKep.Entities;
+using PengKep.BusinessEntities;
 
 namespace PengKep.Repositories
 {

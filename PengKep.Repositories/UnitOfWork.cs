@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 
 using PengKep.Common.Interfaces;
-using PengKep.Entities;
+using PengKep.BusinessEntities;
 
 namespace PengKep.Repositories
 {

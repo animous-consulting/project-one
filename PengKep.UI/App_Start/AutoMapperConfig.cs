@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using AutoMapper;
 
-using PengKep.Entities;
-using PengKep.Repositories;
+using PengKep.BusinessEntities;
 using PengKep.ViewModels;
 
 namespace PengKep

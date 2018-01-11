@@ -7,8 +7,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using AutoMapper;
 
-using PengKep.Entities;
+using PengKep.BusinessEntities;
 using PengKep.Common.Interfaces;
+using PengKep.Helpers;
 using PengKep.ViewModels;
 
 namespace PengKep.UI.Controllers
@@ -47,184 +48,75 @@ namespace PengKep.UI.Controllers
                  orderby q.UserName
                  select q).ToList();
 
-            //foreach (var user in users)
-            //{
-            //    user.UserRoles =
-            //        (from q in userRoleRepository.Get(includeProperties: "Role")
-            //         where q.UserID == user.UserID
-            //         orderby q.Role.RoleName
-            //         select q).ToList();
-
-            //    foreach (var item in user.UserRoles.Where(w => w.Role?.RoleName == null))
-            //    {
-            //        var company = companyRepository.GetByID(item.RoleID);
-            //        if (company != null)
-            //        {
-            //            item.Role.RoleName = company.CompanyName;
-            //        }
-            //        else
-            //        {
-            //            var organizationUnit = organizationUnitRepository.GetByID(item.RoleID);
-            //            if (organizationUnit != null) item.Role.RoleName = organizationUnit.OrganizationUnitName;
-            //        }
-            //    }
-            //}
-
-            var organizationUnitIDs = organizationUnitRepository.Get().Select(s => s.OrganizationUnitID).ToList();
-
             var model = AutoMapper.Mapper.Map<IEnumerable<ApplicationUserViewModel>>(users);
 
+            var organizationUnits =
+                (from q in organizationUnitRepository.Get()
+                 select q).ToList();
 
-
-
-            //var roles =
-            //    (from q in roleRepository.Get().ToList()
-            //     where !companyIDs.Contains(q.RoleID) && !organizationUnitIDs.Contains(q.RoleID)
-            //     orderby q.DisplayOrder
-            //     select new RoleViewModel()
-            //     {
-            //         RoleID = q.RoleID,
-            //         RoleName = q.RoleName,
-            //         RoleDesc = q.RoleDesc,
-            //         RoleGroup = "basic"
-            //     }).ToList();
-
-            //var companies = companyRepository.Get().ToList();
-
-            //roles = roles.Concat(
-            //    (from q in companies
-            //     select new RoleViewModel()
-            //     {
-            //         RoleID = q.CompanyID,
-            //         RoleName = q.CompanyName,
-            //         RoleDesc = "Access to " + q.CompanyName,
-            //         RoleGroup = "comp"
-            //     }).ToList()).ToList();
-
-            //var topOrganizationUnitIDs =
-            //    (from q in organizationUnitRepository.Get()
-            //     where String.IsNullOrEmpty(q.OrganizationUnitParentID)
-            //     select q.OrganizationUnitID).ToList();
-
-            //List<OrganizationUnit> organizationUnits = new List<OrganizationUnit>();
-            //foreach (var item in topOrganizationUnitIDs)
-            //{
-            //    organizationUnits = organizationUnits.Union(organizationUnitRepository.GetAllOrganizationUnitChildren(item, companies.Select(s => s.CompanyID).ToList(), 2)).ToList();
-            //}
-            //organizationUnitRepository.ReorderByHierarchy(ref organizationUnits, true);
-
-            //roles = roles.Concat(
-            //   (from q in organizationUnits
-            //    select new RoleViewModel()
-            //    {
-            //        RoleID = q.OrganizationUnitID,
-            //        RoleName = q.OrganizationUnitName,
-            //        RoleDesc = "Access to " + q.OrganizationUnitName.Trim() + " and organization units below",
-            //        RoleGroup = "orgunit"
-            //    }).ToList()).ToList();
-
-            //var roleGroups = new List<dynamic> {
-            //    new { RoleGroup = "basic", RoleGroupName =  "" },
-            //    new { RoleGroup = "comp", RoleGroupName =  "Company" },
-            //    new { RoleGroup = "orgunit", RoleGroupName =  "Organization Unit" }
-            //};
+            organizationUnitRepository.ReorderByHierarchy(ref organizationUnits, true);
 
             var roles =
                 (from q in roleManager.Roles
-                 select q).ToList();
+                 select new RoleViewModel()
+                 {
+                     Id = q.Id,
+                     Name = q.Name,
+                     Description = q.Description,
+                     RoleGroup = "basic"
+                 }).ToList();
 
-            //var roles =
-            //    (from q in roleManager.Roles
-            //     select q).ToList();
+            roles = roles.Concat(
+               (from q in organizationUnits
+                select new RoleViewModel()
+                {
+                    Id = q.OrganizationUnitID,
+                    Name = q.OrganizationUnitName,
+                    Description = "Access to " + q.OrganizationUnitName.Trim() + " and organization units below",
+                    RoleGroup = "orgunit"
+                }).ToList()).ToList();
+
+            var roleGroups = new List<dynamic> {
+                new { RoleGroup = "basic", RoleGroupName =  "" },
+                new { RoleGroup = "orgunit", RoleGroupName =  "Organization Unit" }
+            };
 
             ViewBag.Roles = roles;
-            //ViewBag.RoleGroups = roleGroups;
+            ViewBag.RoleGroups = roleGroups;
             return View(model);
         }
 
         //
         // POST: /User/Create
 
-        //[HttpPost]
-        //[ValidateCustomAntiForgeryToken()]
-        //public ActionResult Create([Bind(Exclude = "CreatedBy, CreatedDate, UserRoles.Role, LastAccess, LastUpdatedDate")]User model)
-        //{
-        //    String result = "";
-        //    bool process = true;
-        //    if (ModelState.IsValid)
-        //    {
-        //        if (userRepository.Get().Any(a => a.UserID.ToLower() == model.UserID.ToLower()))
-        //        {
-        //            result = "User ID specified has already exists"; process = false;
-        //        }
-        //        String _userid =
-        //             (from q in userRepository.Get(includeProperties: "UserRoles")
-        //              where q.UserID == User.Identity.Name && q.UserRoles.Any(a => a.RoleID == "ADM")
-        //              select model.UserID).FirstOrDefault();
+        [HttpPost]
+        [ValidateCustomAntiForgeryToken()]
+        public ActionResult Create([Bind(Exclude = "CreatedBy, CreatedDate, UserRoles.Role, LastAccess, LastUpdatedDate")]User model)
+        {
+            bool process = true;
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = userManager.CreateAsync(user, model.Password);
+                if (result.)
+                {
+                    signInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-        //        if (_userid == null)
-        //        {
-        //            result = "You are not authorized to perform this action!"; process = false;
-        //        }
-        //        if (process)
-        //        {
-        //            var userRoles = model.UserRoles;
-        //            model.UserID = _userid.Replace("\\\\", "\\");
-        //            model.UserRoles = null;
-        //            model.CreatedBy = User.Identity.Name;
-        //            model.CreatedDate = DateTime.Now;
-        //            userRepository.Insert(model);
+                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await userManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await userManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-        //            var existingRoleIDs = roleRepository.Get().Select(s => s.RoleID).ToList();
+                    return RedirectToAction("Index", "Home");
+                }
+                AddErrors(result);
+            }
 
-        //            if (userRoles != null && userRoles.Count() > 0)
-        //            {
-
-        //                var notExistsRoleIDs = userRoles.Where(w => !existingRoleIDs.Contains(w.RoleID)).Select(s => s.RoleID);
-        //                foreach (var item in notExistsRoleIDs)
-        //                {
-        //                    roleRepository.Insert(new Role() { RoleID = item });
-        //                }
-        //                unitOfWork.Commit();
-
-        //                foreach (var item in userRoles)
-        //                {
-        //                    var userRole = new UserRole { UserID = _userid, RoleID = item.RoleID };
-        //                    userRoleRepository.Insert(userRole);
-        //                }
-        //                unitOfWork.Commit();
-        //            }
-
-
-        //            var returnmodel = AutoMapper.Mapper.Map<UserViewModel>(userRepository.Get(includeProperties: "UserRoles, UserRoles.Role").Where(w => w.UserID == model.UserID).FirstOrDefault());
-        //            foreach (var item in returnmodel.UserRoles.Where(w => w.Role?.RoleName == null))
-        //            {
-        //                var company = companyRepository.GetByID(item.RoleID);
-        //                if (company != null)
-        //                {
-        //                    item.Role.RoleName = company.CompanyName;
-        //                }
-        //                else
-        //                {
-        //                    var organizationUnit = organizationUnitRepository.GetByID(item.RoleID);
-        //                    if (organizationUnit != null) item.Role.RoleName = organizationUnit.OrganizationUnitName;
-        //                }
-        //            }
-        //            return Json(new { result = "OK", model = returnmodel });
-        //        }
-        //    }
-        //    else
-        //    {
-        //        foreach (var key in ModelState.Keys)
-        //        {
-        //            foreach (var err in ModelState[key].Errors)
-        //            {
-        //                result = err.ErrorMessage + "\n";
-        //            }
-        //        }
-        //    }
-        //    return Json(new { result = result });
-        //}
+            // If we got this far, something failed, redisplay form
+            return View(model);
+            return Json(new { result = result });
+        }
 
         ////
         //// POST: /User/Edit/5

@@ -7,7 +7,7 @@ using Microsoft.Owin.Security.Google;
 using Owin;
 using System.Web.Mvc;
 
-using PengKep.Repositories;
+using PengKep.BusinessEntities;
 
 namespace PengKep
 {

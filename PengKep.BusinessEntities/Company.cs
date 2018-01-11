@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PengKep.Entities
+namespace PengKep.BusinessEntities
 {
 
     [Table("tbl_company")]

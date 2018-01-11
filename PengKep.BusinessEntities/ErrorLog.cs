@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace PengKep.Entities
+namespace PengKep.BusinessEntities
 {
     [Table("tbl_error_log")]
     public class ErrorLog

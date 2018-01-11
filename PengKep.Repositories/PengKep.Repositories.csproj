@@ -68,7 +68,7 @@
     <Compile Include="ExpenseCategoryRepository.cs" />
     <Compile Include="ExpenseRepository.cs" />
     <Compile Include="GenericRepository.cs" />
-    <Compile Include="IdentityDBContexts.cs" />
+    <Compile Include="Identity\IdentityDBContexts.cs" />
     <Compile Include="Migrations\MySqlConfiguration.cs" />
     <Compile Include="Migrations\MySqlHistoryContext.cs" />
     <Compile Include="Migrations\MySqlInitializer.cs" />
@@ -82,9 +82,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PengKep.Entities\PengKep.Entities.csproj">
+    <ProjectReference Include="..\PengKep.BusinessEntities\PengKep.BusinessEntities.csproj">
       <Project>{289efc10-0c0b-4715-9c23-1c4f786ce473}</Project>
-      <Name>PengKep.Entities</Name>
+      <Name>PengKep.BusinessEntities</Name>
     </ProjectReference>
     <ProjectReference Include="..\PengKep.Interfaces\PengKep.Common.csproj">
       <Project>{bc3d5c0a-f9a8-47c5-9565-55da29d48578}</Project>
