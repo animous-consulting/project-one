@@ -237,6 +237,7 @@
     <Compile Include="Helpers\AntiForgeryExtension.cs" />
     <Compile Include="Helpers\ValidateCustomAntiForgeryToken.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
+    <Compile Include="ViewModels\ApplicationUserRoleViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -285,6 +286,7 @@
     <Content Include="Content\scss\font-awesome-custom.scss" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Chart.min.js" />
+    <Content Include="Scripts\controllers\userManagementController.js" />
     <Content Include="Scripts\elastic.min.js" />
     <Content Include="Scripts\html5shiv.min.js" />
     <Content Include="Scripts\jquery.min.js" />
@@ -331,11 +333,12 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\UserManagement\Index.cshtml" />
     <Content Include="Views\ManageCompany\Index.cshtml" />
+    <Content Include="Views\UserManagement\_Modal_Create.cshtml" />
+    <Content Include="Views\UserManagement\_Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Migrations\" />
-    <Folder Include="Scripts\controllers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

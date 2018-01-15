@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using AutoMapper;
 
@@ -24,7 +25,9 @@ namespace PengKep
                 cfg.CreateMap<OrganizationUnit, OrganizationUnitViewModel>();
                 cfg.CreateMap<PMExpense, PMExpenseViewModel>();
                 cfg.CreateMap<ApplicationUser, ApplicationUserViewModel>();
-               
+
+                cfg.CreateMap<IdentityUserRole, ApplicationUserRoleViewModel>();
+
             });
         }
     }

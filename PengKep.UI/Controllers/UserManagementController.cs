@@ -91,138 +91,70 @@ namespace PengKep.UI.Controllers
 
         [HttpPost]
         [ValidateCustomAntiForgeryToken()]
-        public ActionResult Create([Bind(Exclude = "CreatedBy, CreatedDate, UserRoles.Role, LastAccess, LastUpdatedDate")]User model)
+        public ActionResult Create(RegisterViewModel model)
         {
-            bool process = true;
+            string result = "";
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = userManager.CreateAsync(user, model.Password);
-                if (result.)
+                var createResult = userManager.CreateAsync(user, model.Password);
+                if (createResult.Result.Succeeded)
                 {
-                    signInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await userManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await userManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    return RedirectToAction("Index", "Home");
+                    result = "OK";
                 }
-                AddErrors(result);
+                else
+                {
+                    result = String.Join("\n", createResult.Result.Errors);
+                }
+            }
+            else
+            {
+                foreach (var key in ModelState.Keys)
+                {
+                    foreach (var err in ModelState[key].Errors)
+                    {
+                        result = err.ErrorMessage + "\n";
+                    }
+                }
+
             }
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
             return Json(new { result = result });
         }
 
         ////
         //// POST: /User/Edit/5
 
-        //[HttpPost]
-        //[ValidateCustomAntiForgeryToken()]
-        //public ActionResult Edit([Bind(Exclude = "LastAccess")]User model)
-        //{
-        //    String result = "";
-        //    bool process = true;
-        //    if (ModelState.IsValid)
-        //    {
-        //        if (String.IsNullOrEmpty(model.LastUpdateRemark))
-        //        {
-        //            result = "Update reason cannot be blank"; process = false;
-        //        }
-        //        String _userid =
-        //            (from q in userRepository.Get(includeProperties: "UserRoles")
-        //             where q.UserID == User.Identity.Name && q.UserRoles.Any(a => a.RoleID == "ADM")
-        //             select model.UserID).FirstOrDefault();
+        [HttpPost]
+        [ValidateCustomAntiForgeryToken()]
+        public ActionResult Edit(ApplicationUser model)
+        {
+            String result = "";
+            bool process = true;
+            if (ModelState.IsValid)
+            {
+                if (process)
+                {
+                    List<string> arrRoles = new List<string>();
+                    if (model.Roles != null) { model.Roles.ToList().ForEach(x => arrRoles.Add(x.RoleId)); }
 
-        //        if (_userid == null)
-        //        {
-        //            result = "You are not authorized to perform this action!"; process = false;
-        //        }
-        //        if (process)
-        //        {
-        //            List<string> arrRoles = new List<string>();
-        //            if (model.UserRoles != null) { model.UserRoles.ToList().ForEach(x => arrRoles.Add(x.RoleID)); }
-        //            List<UserRole> userRoles = userRoleRepository.Get().Where(w => w.UserID == _userid).ToList();
+                    unitOfWork.Commit();
+                    return Json(new { result = "OK" });
+                }
+            }
+            else
+            {
+                foreach (var key in ModelState.Keys)
+                {
+                    foreach (var err in ModelState[key].Errors)
+                    {
+                        result = err.ErrorMessage + "\n";
+                    }
+                }
 
-        //            var existingRoleIDs = roleRepository.Get().Select(s => s.RoleID).ToList();
-        //            var notExistsRoleIDs = arrRoles.Where(w => !existingRoleIDs.Contains(w)).Select(s => s);
-        //            foreach (var item in notExistsRoleIDs)
-        //            {
-        //                roleRepository.Insert(new Role() { RoleID = item });
-        //            }
-        //            unitOfWork.Commit();
-
-        //            foreach (String role in arrRoles)
-        //            {
-        //                if (!userRoles.Any(a => a.RoleID == role) && !String.IsNullOrEmpty(role))
-        //                {
-        //                    userRoleRepository.Insert(new UserRole { UserID = _userid, RoleID = role });
-        //                }
-        //            }
-        //            foreach (UserRole userRole in userRoles)
-        //            {
-        //                bool delete = true;
-        //                foreach (String role in arrRoles)
-        //                {
-        //                    if (userRole.RoleID == role) { delete = false; break; }
-        //                }
-        //                if (delete == true)
-        //                {
-        //                    userRoleRepository.Delete(userRole);
-        //                }
-        //            }
-
-        //            model.UserID = _userid.Replace("\\\\", "\\");
-        //            var editedmodel = userRepository.GetByID(model.UserID);
-        //            editedmodel.UserName = model.UserName;
-        //            editedmodel.EmailAddress = model.EmailAddress;
-        //            editedmodel.IsActive = model.IsActive;
-        //            editedmodel.LastUpdatedBy = User.Identity.Name;
-        //            editedmodel.LastUpdatedDate = DateTime.Now;
-        //            editedmodel.LastUpdateRemark = model.LastUpdateRemark;
-        //            userRepository.Update(editedmodel);
-        //            unitOfWork.Commit();
-
-        //            editedmodel.UserRoles =
-        //                (from q in userRoleRepository.Get(includeProperties: "Role")
-        //                 where q.UserID == model.UserID
-        //                 orderby q.Role.RoleName
-        //                 select q).ToList();
-
-        //            var returnmodel = AutoMapper.Mapper.Map<UserViewModel>(editedmodel);
-        //            foreach (var item in returnmodel.UserRoles.Where(w => w.Role?.RoleName == null))
-        //            {
-        //                var company = companyRepository.GetByID(item.RoleID);
-        //                if (company != null)
-        //                {
-        //                    item.Role.RoleName = company.CompanyName;
-        //                }
-        //                else
-        //                {
-        //                    var organizationUnit = organizationUnitRepository.GetByID(item.RoleID);
-        //                    if (organizationUnit != null) item.Role.RoleName = organizationUnit.OrganizationUnitName;
-        //                }
-        //            }
-        //            return Json(new { result = "OK", model = returnmodel });
-        //        }
-        //    }
-        //    else
-        //    {
-        //        foreach (var key in ModelState.Keys)
-        //        {
-        //            foreach (var err in ModelState[key].Errors)
-        //            {
-        //                result = err.ErrorMessage + "\n";
-        //            }
-        //        }
-
-        //    }
-        //    return Json(new { result = result });
-        //}
+            }
+            return Json(new { result = result });
+        }
 
         ////
         //// GET: /User/Delete/5

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,6 +13,6 @@ namespace PengKep.ViewModels
         public string DisplayAddress { get; set; }
         public string PhoneNumber { get; set; }
         public bool PhoneNumberConfirmed { get; set; }
-        public ICollection<IdentityUserRole> Roles { get; set; }
+        public ICollection<ApplicationUserRoleViewModel> Roles { get; set; }
     }
 }
