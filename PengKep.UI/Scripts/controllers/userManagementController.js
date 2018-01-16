@@ -35,7 +35,6 @@ app.controller('userManagementController', function ($scope, $http) {
     };
     $scope.update = function () {
         $scope.isSaving = true;
-        $scope.editedModel.LastAccess = moment($scope.editedModel.LastAccess);
         $http({
             method: 'post',
             url: urlEdit,
