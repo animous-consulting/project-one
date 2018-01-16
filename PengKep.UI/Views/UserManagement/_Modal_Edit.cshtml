@@ -11,9 +11,26 @@
                 <div class="alert alert-danger" data-ng-show="errorMessage">{{ errorMessage }}</div>
                 <div class="form-horizontal">
                     <div class="form-group">
+                        @Html.LabelFor(m => Model.Id, new { @class = "col-md-3 control-label" })
+                        <div class="col-md-9">
+                            @Html.TextBoxFor(m => Model.Id, new { @class = "form-control", data_ng_model = "editedModel.Id" })
+                        </div>
+                    </div>
+                    <div class="form-group">
                         @Html.LabelFor(m => Model.Email, new { @class = "col-md-3 control-label" })
                         <div class="col-md-9">
-                            @Html.TextBoxFor(m => Model.Email, new { @class = "form-control", data_ng_model = "addedModel.Email" })
+                            @Html.TextBoxFor(m => Model.Email, new { @class = "form-control", data_ng_model = "editedModel.Email" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Roles.FirstOrDefault().RoleId, new { @class = "col-md-3 control-label" })
+                        <div class="col-md-9">
+                            <div data-ng-repeat="rolegroupitem in roleGroups">
+                                <div class="text-muted" style="margin-top: 10px; margin-left: -5px">{{ rolegroupitem.RoleGroupName }}</div>
+                                <div class="checkbox" data-ng-repeat="item in roles | filter : { 'RoleGroup' : rolegroupitem.RoleGroup }" title="{{ item.RoleDesc }}">
+                                    <label><input type="checkbox" value="{{ item.Id }}" data-ng-click="toggleSelection(item, $event)" data-ng-checked="isChecked(item)">{{ item.Name }}</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

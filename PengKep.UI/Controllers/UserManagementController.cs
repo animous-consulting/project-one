@@ -48,6 +48,7 @@ namespace PengKep.UI.Controllers
                  orderby q.UserName
                  select q).ToList();
 
+
             var model = AutoMapper.Mapper.Map<IEnumerable<ApplicationUserViewModel>>(users);
 
             var organizationUnits =
@@ -100,7 +101,8 @@ namespace PengKep.UI.Controllers
                 var createResult = userManager.CreateAsync(user, model.Password);
                 if (createResult.Result.Succeeded)
                 {
-                    result = "OK";
+                    var returnModel = userManager.FindByEmailAsync(model.Email);
+                    return Json(new { result = "OK", model = returnModel });
                 }
                 else
                 {
@@ -116,9 +118,7 @@ namespace PengKep.UI.Controllers
                         result = err.ErrorMessage + "\n";
                     }
                 }
-
             }
-
             return Json(new { result = result });
         }
 
@@ -135,11 +135,17 @@ namespace PengKep.UI.Controllers
             {
                 if (process)
                 {
-                    List<string> arrRoles = new List<string>();
-                    if (model.Roles != null) { model.Roles.ToList().ForEach(x => arrRoles.Add(x.RoleId)); }
-
-                    unitOfWork.Commit();
-                    return Json(new { result = "OK" });
+                    var user = userManager.Users.Where(w => w.Email == model.Email).SingleOrDefault();
+                    var editResult = userManager.AddToRolesAsync(user.Id, model.Roles.Select(s => s.RoleId).ToArray());
+                    if (editResult.Result.Succeeded)
+                    {
+                        var returnModel = userManager.FindByNameAsync(model.UserName);
+                        return Json(new { result = "OK", model = returnModel });
+                    }
+                    else
+                    {
+                        result = String.Join("\n", editResult.Result.Errors);
+                    }
                 }
             }
             else

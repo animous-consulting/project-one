@@ -30,6 +30,9 @@
                 </tr>
             </thead>
             <tbody>
+                <tr data-ng-show="!model || model.length == 0">
+                    <td class="text-center" colspan="7">- no data -</td>
+                </tr>
                 <tr data-ng-repeat="item in model">
                     <td>{{ item.UserName }}</td>
                     <td>{{ item.Email }}</td>
@@ -56,6 +59,7 @@
     <script type="text/javascript">
         var model = @Html.Raw(Json.Encode(Model));
         var roles = @Html.Raw(Json.Encode(ViewBag.Roles));
+        var roleGroups = @Html.Raw(Json.Encode(ViewBag.RoleGroups));
         var newitem = @Html.Raw(Json.Encode(new PengKep.ViewModels.RegisterViewModel()));
         var urlCreate = '@Url.Action("Create", "UserManagement")';
         var urlEdit  = '@Url.Action("Edit", "UserManagement")';
