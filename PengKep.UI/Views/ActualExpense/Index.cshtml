@@ -1,0 +1,87 @@
+﻿@using PengKep.Helpers
+@model PengKep.ViewModels.ActualExpenseDisplayViewModel
+
+@{
+    ViewBag.Title = "Actual Expense";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var accessibleOrganizationUnits = (List<PengKep.ViewModels.OrganizationUnitViewModel>)ViewBag.OrganizationUnits;
+
+    // breadcrumb
+    List<PengKep.ViewModels.OrganizationUnitViewModel> organizationUnitBreadcrumb = BreadcrumbHelper.Create(ViewBag.OrganizationUnitID, accessibleOrganizationUnits);
+
+}
+
+@section HeadContent {
+    <link href="@Url.Content("~/Content/angular-csp.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/angular-loading.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/handsontable.full.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/abn_tree.min.css")" rel="stylesheet" type="text/css" />
+}
+
+<div class="page-header">
+    <h3>Actual</h3>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        @using (Html.BeginForm("Index", "ActualExpense", FormMethod.Get))
+        {
+            @Html.Partial("_OrganizationUnitAndYearSelector")
+        }
+
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="alert alert-danger">@ViewBag.ErrorMessage </div>
+        }
+    </div>
+</div>
+
+@if (ViewBag.OrganizationUnitID != null && ViewBag.Year != null)
+{
+    <div class="row" id="ng-app" data-ng-app="app" data-ng-controller="actualExpenseController" data-ng-init="getChartData('@ViewBag.OrganizationUnitID', '@ViewBag.Year')" @Html.RequestVerificationToken() data-ng-cloak>
+        <div class="col-md-12">
+            @if (organizationUnitBreadcrumb.Count() > 0)
+            {
+                <ol class="breadcrumb" style="margin-bottom: 50px">
+                    @foreach (var item in organizationUnitBreadcrumb)
+                    {
+                        <li class="breadcrumb-item"><a href="@Url.RouteUrl(new { organizationUnitId = item.OrganizationUnitID, year = ViewBag.Year })">@item.OrganizationUnitName.Trim()</a></li>
+                    }
+                    <li class="breadcrumb-item active">@ViewBag.OrganizationUnitName</li>
+                </ol>
+            }
+        </div>
+        <div class="col-md-12">
+            <div class="text-center" style="margin-bottom: 30px">
+                <h2>Actual Operating Expense</h2>
+                <h4>@ViewBag.OrganizationUnitName</h4>
+                <p>@ViewBag.Year</p>
+            </div>
+        </div>
+        @Html.Partial("_ActualExpenseByOrganizationUnit")
+        @Html.Partial("_ActualExpense")
+        @Html.Partial("_ActualExpenseChart")
+
+    </div>
+}
+
+@section Scripts {
+    <script src="@Url.Content("~/Scripts/angular.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Chart.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/angular-chart.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/angular-loading.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/abn_tree_directive.min.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        var expenseCategories = @Html.Raw(Json.Encode(ViewBag.ExpenseCategories));
+        var model = @Html.Raw(Json.Encode(Model));
+        var organizationUnitId = '@ViewBag.OrganizationUnitID';
+        var organizationUnitName = '@Html.Raw(ViewBag.OrganizationUnitName)';
+        var year = '@(ViewBag.Year != null ? ViewBag.Year : "")';
+        var urlGetChartData = '@Url.Action("GetChartData", "ActualExpense")';
+    </script>
+    <script src="@Url.Content("~/Scripts/controllers/actualExpenseController.js")?@PengKep.Helpers.ApplicationSettings.LastUpdated.ToString("yyMMdd")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/controllers/organizationUnitAndYearSelectorController.js")?@PengKep.Helpers.ApplicationSettings.LastUpdated.ToString("yyMMdd")" type="text/javascript"></script>
+    <script type="text/javascript">
+        angular.element(document).ready(function () { angular.bootstrap($("#ng-app"), ['app']); });
+    </script>
+}

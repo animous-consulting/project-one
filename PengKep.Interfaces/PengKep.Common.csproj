@@ -45,7 +45,6 @@
     <Compile Include="Interfaces\IApprovalHistoryRepository.cs" />
     <Compile Include="Interfaces\IApprovalRepository.cs" />
     <Compile Include="Interfaces\IApprovalStatusRepository.cs" />
-    <Compile Include="Interfaces\ICompanyRepository.cs" />
     <Compile Include="Interfaces\IConfigRepository.cs" />
     <Compile Include="Interfaces\IConnection.cs" />
     <Compile Include="Interfaces\IErrorLogRepository.cs" />
@@ -53,7 +52,7 @@
     <Compile Include="Interfaces\IExpenseRepository.cs" />
     <Compile Include="Interfaces\IGenericRepository.cs" />
     <Compile Include="Interfaces\IOrganizationUnitRepository.cs" />
-    <Compile Include="Interfaces\IPMExpenseRepository.cs" />
+    <Compile Include="Interfaces\IActualExpenseRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

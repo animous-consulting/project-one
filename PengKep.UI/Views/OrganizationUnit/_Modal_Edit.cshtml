@@ -1,0 +1,64 @@
+﻿@model PengKep.BusinessEntities.OrganizationUnit
+
+<div id="modal-edit" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                @*<h4 class="modal-title">Modal title</h4>*@
+            </div>
+            <div class="modal-body">
+                <div data-ng-show="editedModel">
+
+
+                    <div class="alert alert-danger" data-ng-show="errorMessage">
+                        {{ errorMessage }}
+                    </div>
+
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.OrganizationUnitID, new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8">
+                                <div style="padding-top: 3px;"><strong>{{ editedModel.OrganizationUnitID }}</strong></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.OrganizationUnitName, new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" data-ng-model="editedModel.OrganizationUnitName" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.OrganizationUnitParentID, new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8">
+                                <select class="form-control" data-ng-model="editedModel.OrganizationUnitParentID">
+                                    <option value=""></option>
+                                    <option data-ng-repeat="item in filteredParent = (model | filter : { OrganizationUnitID : '!' + editedModel.OrganizationUnitID } : true)" value="{{ item.OrganizationUnitID }}">{{ item.OrganizationUnitName.trim() }}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IsActive, new { @class = "col-md-4 control-label" })
+                            <div class="col-md-4">
+                                <select class="form-control" data-ng-model="editedModel.IsActive">
+                                    <option value="Y">Y</option>
+                                    <option value="N">N</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label"> Update Reason</label>
+                            <div class="col-md-8">
+                                <textarea class="form-control msd-elastic" type="text" data-ng-model="editedModel.LastUpdateRemark"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-ng-click="update()" data-ng-show="editedModel" data-ng-disabled="isSaving" title="Save"><i class="glyphicon glyphicon-save"></i>&nbsp;{{ (!isSaving ? 'Save' : 'Please wait..') }}</button>
+                <button class="btn btn-default" data-dismiss="modal" data-ng-disabled="isSaving"><i class="glyphicon glyphicon-remove"></i>&nbsp;Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -14,25 +14,23 @@ using PengKep.ViewModels;
 
 namespace PengKep.UI.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class UserManagementController : Controller
     {
 
         private IUnitOfWork unitOfWork;
 
-        private ICompanyRepository companyRepository;
         private IOrganizationUnitRepository organizationUnitRepository;
         private ApplicationUserManager userManager;
         private ApplicationRoleManager roleManager;
 
         public UserManagementController(
-            ICompanyRepository companyRepository,
             IOrganizationUnitRepository organizationUnitRepository,
             IUnitOfWork unitOfWork,
             ApplicationUserManager userManager,
             ApplicationRoleManager roleManager)
         {
             this.unitOfWork = unitOfWork;
-            this.companyRepository = companyRepository;
             this.organizationUnitRepository = organizationUnitRepository;
             this.userManager = userManager;
             this.roleManager = roleManager;
@@ -135,11 +133,53 @@ namespace PengKep.UI.Controllers
             {
                 if (process)
                 {
-                    List<string> arrRoles = new List<string>();
-                    if (model.Roles != null) { model.Roles.ToList().ForEach(x => arrRoles.Add(x.RoleId)); }
 
-                    unitOfWork.Commit();
-                    return Json(new { result = "OK" });
+                    var roles =
+                        (from q in roleManager.Roles
+                         select q).ToList();
+
+                    var user =
+                        (from q in userManager.Users
+                         where q.Email == model.Email
+                         select q).FirstOrDefault();
+
+                    var existingRoles =
+                        (from q in userManager.Users
+                         where q.Email == model.Email
+                         select q.Roles).FirstOrDefault();
+
+                    var deletedRoles =
+                        (from q in existingRoles
+                         join r in roles on q.RoleId equals r.Id
+                         where !model.Roles.Any(a => a.RoleId == q.RoleId)
+                         select r.Name).ToArray();
+
+                    var newRoles =
+                        (from q in model.Roles
+                         join r in roles on q.RoleId equals r.Id
+                         where !existingRoles.Any(a => a.RoleId == q.RoleId)
+                         select r.Name).ToArray();
+
+                    var updateResult = userManager.RemoveFromRolesAsync(user.Id, deletedRoles);
+
+                    if (updateResult.Result.Succeeded)
+                    {
+
+                        updateResult = userManager.AddToRolesAsync(user.Id, newRoles);
+
+                        if (updateResult.Result != null && updateResult.Result.Succeeded)
+                        {
+                            return Json(new { result = "OK", model = model });
+                        }
+                        else
+                        {
+                            result = String.Join("\n", updateResult.Result.Errors);
+                        }
+                    }
+                    else
+                    {
+                        result = String.Join("\n", updateResult.Result.Errors);
+                    }
                 }
             }
             else
@@ -151,7 +191,6 @@ namespace PengKep.UI.Controllers
                         result = err.ErrorMessage + "\n";
                     }
                 }
-
             }
             return Json(new { result = result });
         }

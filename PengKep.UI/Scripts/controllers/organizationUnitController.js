@@ -1,47 +1,11 @@
-﻿app = angular.module('app', []);
-app.controller('userManagementController', function ($scope, $http, $filter) {
+﻿var app = angular.module('app', ['monospaced.elastic']);
+app.controller('organizationUnitController', function ($scope, $http, $filter) {
     $scope.model = model;
-    $scope.roles = roles;
-
-    $scope.getRoleNames = function (roles) {
-        var roleNames = '';
-        roles.forEach(function (el, i) {
-            var filteredRoles = $filter('filter')($scope.roles, { Id: el.RoleId }, true);
-            if (filteredRoles) {
-                roleNames += filteredRoles[0].Name;
-                if (i != roles.length - 1) { roleNames += ', '; }
-            }
-        });
-        return roleNames;
+    $scope.getOrganizationUnitName = function (id) {
+        var organizationUnits = $filter('filter')(model, { 'OrganizationUnitID': id }, true);
+        if (organizationUnits[0] != null) { return organizationUnits[0].OrganizationUnitName.trim(); }
+        return '';
     };
-    $scope.isChecked = function (item) {
-        var target;
-        if ($scope.addedModel) { target = $scope.addedModel; }
-        if ($scope.editedModel) { target = $scope.editedModel; }
-        if (target) {
-            return target.Roles.some(function (e) {
-                return e.RoleId == item.Id;
-            });
-        }
-    };
-    $scope.toggleSelection = function toggleSelection(item, event) {
-        var idx = -1;
-        var target;
-        if ($scope.addedModel) { target = $scope.addedModel; }
-        if ($scope.editedModel) { target = $scope.editedModel; }
-        if (target.Roles == null) target.Roles = [];
-        target.Roles.some(function (el, i) {
-            if (el.RoleId == item.Id) {
-                idx = i; return true;
-            }
-        });
-        if (idx > -1) {
-            target.Roles.splice(idx, 1);
-        } else {
-            target.Roles.push({ 'RoleId': item.Id });
-        }
-    };
-
     $scope.addItem = function () {
         $scope.reset();
         $scope.addedModel = angular.copy(newitem);
@@ -50,6 +14,7 @@ app.controller('userManagementController', function ($scope, $http, $filter) {
     $scope.editItem = function (item) {
         $scope.reset();
         $scope.editedModel = angular.copy(item);
+        $scope.editedModel.OrganizationUnitName = $scope.editedModel.OrganizationUnitName.trim();
         $("#modal-edit").modal({ backdrop: 'static', keyboard: false });
     };
     $scope.save = function () {
@@ -60,8 +25,7 @@ app.controller('userManagementController', function ($scope, $http, $filter) {
             data: $scope.addedModel
         }).then(function successCallback(response) {
             if (response.data.result == "OK") {
-                var model = response.data.model;
-                $scope.model.splice(0, 0, model);
+                $scope.model = response.data.model;
                 $("#modal-create").modal('hide');
             } else {
                 $scope.errorMessage = response.data.result;
@@ -81,12 +45,15 @@ app.controller('userManagementController', function ($scope, $http, $filter) {
         }).then(function successCallback(response) {
             if (response.data.result == "OK") {
                 var model = response.data.model;
-                $scope.model.some(function (el, i) {
-                    console.log(el);
-                    if (el.UserId == model.UserId) {
-                        $scope.model[i] = model; return true;
-                    }
-                })
+                if (Array.isArray(model)) {
+                    $scope.model = model;
+                } else {
+                    var idx = -1;
+                    $scope.model.some(function (el, i) {
+                        if (el.OrganizationUnitID == model.OrganizationUnitID) { idx = i; return true; }
+                    });
+                    $scope.model[idx] = model;
+                }
                 $("#modal-edit").modal('hide');
             } else {
                 $scope.errorMessage = response.data.result;
@@ -97,11 +64,32 @@ app.controller('userManagementController', function ($scope, $http, $filter) {
             $scope.isSaving = undefined;
         });
     };
+    $scope.isChecked = function (id) {
+        var ischecked = false;
+        if ($scope.addedModel) {
+            if ($scope.addedModel.CompanyTag) {
+                if ($scope.addedModel.CompanyTag.indexOf(id) > -1) {
+                    ischecked = true;
+                }
+            }
+        }
+        if ($scope.editedModel) {
+            if ($scope.editedModel.CompanyTag) {
+                if ($scope.editedModel.CompanyTag.indexOf(id) > -1) {
+                    ischecked = true;
+                }
+            }
+        }
+        return ischecked;
+    }
     $scope.reset = function () {
         $scope.errorMessage = undefined;
         $scope.addedModel = undefined;
         $scope.editedModel = undefined;
+        $scope.deletedModel = undefined;
     };
+    $("#modal-create").on('hidden.bs.modal', function () { $scope.reset(); });
+    $("#modal-edit").on('hidden.bs.modal', function () { $scope.reset(); });
 });
 app.directive('ncgRequestVerificationToken', ['$http', function ($http) {
     return function (scope, element, attrs) {

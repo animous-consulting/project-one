@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace PengKep.BusinessEntities
 {
     [Table("tbl_pm_expense")]
-    public class PMExpense
+    public class ActualExpense
     {
         [Key]
         [ForeignKey("OrganizationUnit")]
@@ -14,13 +14,6 @@ namespace PengKep.BusinessEntities
         [Display(Name = "Organization Unit ID")]
         [MaxLength(12)]
         public string OrganizationUnitID { get; set; }
-
-        [Key]
-        [ForeignKey("Company")]
-        [Column("company_id", Order = 1)]
-        [Display(Name = "Company ID")]
-        [MaxLength(5)]
-        public string CompanyID { get; set; }
 
         [Key]
         [Required]
@@ -98,7 +91,6 @@ namespace PengKep.BusinessEntities
 
         public virtual OrganizationUnit OrganizationUnit { get; set; }
         public virtual Expense Expense { get; set; }
-        public virtual Company Company { get; set; }
 
         public virtual double? Total
         {

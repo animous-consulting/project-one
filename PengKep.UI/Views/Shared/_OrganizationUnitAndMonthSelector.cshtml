@@ -1,0 +1,96 @@
+﻿@{
+    var abnInitialSelection = ViewBag.OrganizationUnitID;
+}
+
+<style type="text/css">
+    .abn-tree-row.active .glyphicon {
+        color: white;
+    }
+
+    .navbox input[readonly=readonly] {
+        background-color: white;
+    }
+</style>
+
+<div class="row" data-ng-app="organizationUnitAndMonthSelectorApp" data-ng-controller="organizationUnitAndMonthSelectorController" data-ng-cloak>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-4">
+                <table class="navbox" style="margin-bottom: 30px">
+                    <tbody>
+                        <tr>
+                            <td>
+                                Org. Unit
+                            </td>
+                            <td class="value" data-ng-click="edit()" style="cursor:pointer">
+                                <span data-ng-hide="isEdited">{{ getOrganizationUnitName(selectedOrganizationUnit) }}</span>
+                                <div class="input-group" data-ng-show="isEdited" data-ng-mouseenter="edit()" data-ng-mouseleave="doneEdit()">
+                                    <input type="hidden" name="organizationUnitId" value="{{ selectedOrganizationUnit }}" />
+                                    <input type="text" class="form-control" value="{{ getOrganizationUnitName(selectedOrganizationUnit) }}" readonly="readonly" data-ng-disabled="isTreeDataLoading" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" data-ng-click="openOrganizationUnitPicker()" data-ng-disabled="isTreeDataLoading">&hellip;</button>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Period
+                            </td>
+                            <td class="value" data-ng-click="edit()" style="cursor: pointer">
+                                <span data-ng-hide="isEdited">{{ getDisplayDate(date) }}</span>
+                                <input class="form-control" name="period" type="text" data-ng-model="date" data-ng-show="isEdited" data-ng-mouseenter="edit()" data-ng-mouseleave="doneEdit()" options="datePickerOption" datetimepicker />
+                            </td>
+                        </tr>
+                        <tr data-ng-show="clickable">
+                            <td class="action" colspan="2">
+                                <div class="buttons">
+                                    <button class="pull-right btn btn-default" id="btnViewData" type="submit" data-ng-click="isLoading=true;isEdited=false">View</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-12" data-ng-show="(@((ViewBag.OrganizationUnitID == null).ToString().ToLower()) || clickable) && @((ViewBag.ErrorMessage == null).ToString().ToLower())">
+            <div style="text-align: center; margin: 40px"><i>- Click View button to continue -</i></div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal_organizationunit_picker" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Organizational Unit Picker</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger" data-ng-show="treeErrorMessage">
+                        {{ treeErrorMessage }}
+                    </div>
+                    <abn-tree data-ng-if="isTreeInit"
+                              tree-data="organizationUnitTreeData"
+                              on-select="setSelectedBranch(branch)"
+                              icon-leaf="glyphicon glyphicon-chevron-right"
+                              icon-expand="glyphicon glyphicon-expand"
+                              icon-collapse="glyphicon glyphicon-collapse-down"
+                              expand-level="2"
+                              initial-selection="@abnInitialSelection"></abn-tree>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    var organizationUnitTreeData = @Html.Raw(Json.Encode(ViewBag.OrganizationUnitTreeData));
+    var clickable = @((Convert.ToString(ViewBag.OrganizationUnitID == null && ViewBag.Period == null)).ToLower());
+    var organizationUnits = @Html.Raw(Json.Encode(ViewBag.OrganizationUnits));
+    var date = '@(ViewBag.Period != null ? ((DateTime)ViewBag.Period).ToString("MMMM dd, yyyy") : DateTime.Now.AddMonths(-1).ToString("MMMM dd, yyyy"))';
+    var selectedOrganizationUnit = '@ViewBag.OrganizationUnitID';
+    if (selectedOrganizationUnit == '' && organizationUnits.length > 0) { selectedOrganizationUnit = organizationUnits[0].OrganizationUnitID; }
+</script>

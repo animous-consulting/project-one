@@ -1,0 +1,84 @@
+﻿@using PengKep.Helpers
+@model IEnumerable<PengKep.ViewModels.OrganizationUnitViewModel>
+@{
+    ViewBag.Title = "Organization Unit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section HeadContent {
+    <link href="@Url.Content("~/Content/angular-csp.min.css")" rel="stylesheet" type="text/css" />
+}
+
+<div class="page-header">
+    <h3>Master Data <small>Organization Units</small></h3>
+</div>
+
+<div class="row" data-ng-app="app" data-ng-controller="organizationUnitController" @Html.RequestVerificationToken() data-ng-cloak>
+
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading" style="padding: 5px">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button class="btn btn-success btn-success btn-sm" data-ng-click="addItem()">Add</button>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="pull-right">
+                            <div class="form-inline">
+                                <input type="text" class="form-control" data-ng-model="query" placeholder="Search" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-primary table-bordered table-condensed">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.LabelFor(model => Model.FirstOrDefault().OrganizationUnitName)
+                        </th>
+                        <th>
+                            @Html.LabelFor(model => Model.FirstOrDefault().OrganizationUnitID)
+                        </th>
+                        <th>
+                            @Html.LabelFor(model => Model.FirstOrDefault().OrganizationUnitParentID)
+                        </th>
+                        <th>
+                            @Html.LabelFor(model => Model.FirstOrDefault().IsActive)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-show="filteredModel.length == 0">
+                        <td class="text-center" colspan="5">- no item -</td>
+                    </tr>
+                    <tr data-ng-repeat="item in filteredModel = (model | filter : query)">
+                        @Html.Partial("_List")
+                    </tr>
+                </tbody>
+            </table>
+            <div class="panel-footer">
+                {{ filteredModel.length }} item(s)
+            </div>
+        </div>
+
+        @Html.Partial("_Modal_Create", new PengKep.BusinessEntities.OrganizationUnit())
+        @Html.Partial("_Modal_Edit", new PengKep.BusinessEntities.OrganizationUnit())
+    </div>
+</div>
+
+@section scripts {
+    <script src="@Url.Content("~/Scripts/angular.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/moment.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/elastic.min.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        var model = @Html.Raw(Json.Encode(Model));
+        var newitem = @Html.Raw(Json.Encode(new PengKep.BusinessEntities.OrganizationUnit() { IsActive = "Y" }));
+        var urlCreate = '@Url.Action("Create", "OrganizationUnit") ';
+        var urlEdit = '@Url.Action("Edit", "OrganizationUnit") ';
+    </script>
+    <script src="@Url.Content("~/Scripts/controllers/organizationUnitController.js")?@Convert.ToDateTime(PengKep.Helpers.ApplicationSettings.LastUpdated).ToString("yyMMdd")" type="text/javascript"></script>
+}
+
+

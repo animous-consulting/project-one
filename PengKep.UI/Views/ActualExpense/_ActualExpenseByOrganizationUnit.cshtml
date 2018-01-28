@@ -1,0 +1,83 @@
+﻿@model PengKep.ViewModels.ActualExpenseDisplayViewModel
+
+<div class="col-md-12">
+    <div style="overflow: auto; margin-bottom: 30px">
+        <table class="table table-bordered table-condensed table-primary" data-ng-show="model.ActualExpenseByOrganizationUnit.length > 0" style="margin-bottom: 0px">
+            <thead>
+                <tr>
+                    <th>Team</th>
+                    <th>@Html.LabelFor(m => m.ActualExpenseByOrganizationUnit.FirstOrDefault().Jan)</th>
+                    <th>@Html.LabelFor(m => m.ActualExpenseByOrganizationUnit.FirstOrDefault().Feb)</th>
+                    <th>@Html.LabelFor(m => m.ActualExpenseByOrganizationUnit.FirstOrDefault().Mar)</th>
+                    <th>@Html.LabelFor(m => m.ActualExpenseByOrganizationUnit.FirstOrDefault().Apr)</th>
+                    <th>@Html.LabelFor(m => m.ActualExpenseByOrganizationUnit.FirstOrDefault().May)</th>
+                    <th>@Html.LabelFor(m => m.ActualExpenseByOrganizationUnit.FirstOrDefault().Jun)</th>
+                    <th>@Html.LabelFor(m => m.ActualExpenseByOrganizationUnit.FirstOrDefault().Jul)</th>
+                    <th>@Html.LabelFor(m => m.ActualExpenseByOrganizationUnit.FirstOrDefault().Aug)</th>
+                    <th>@Html.LabelFor(m => m.ActualExpenseByOrganizationUnit.FirstOrDefault().Sep)</th>
+                    <th>@Html.LabelFor(m => m.ActualExpenseByOrganizationUnit.FirstOrDefault().Oct)</th>
+                    <th>@Html.LabelFor(m => m.ActualExpenseByOrganizationUnit.FirstOrDefault().Nov)</th>
+                    <th>@Html.LabelFor(m => m.ActualExpenseByOrganizationUnit.FirstOrDefault().Dec)</th>
+                    <th>TOTAL</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="item in model.ActualExpenseByOrganizationUnit">
+                    <td style="min-width: 200px">
+                        <span data-ng-show="item.OrganizationUnitID == '@ViewBag.OrganizationUnitID'">{{ item.OrganizationUnit.OrganizationUnitName  }}</span>
+                        <div data-ng-hide="item.OrganizationUnitID == '@ViewBag.OrganizationUnitID'"><a href="@Url.RouteUrl(new { })?organizationUnitId={{ item.OrganizationUnitID }}&year=@ViewBag.Year">{{ item.OrganizationUnit.OrganizationUnitName }}</a></div>
+                    </td>
+                    <td class="text-right">{{ item.Jan | number : 2 }}</td>
+                    <td class="text-right">{{ item.Feb | number : 2 }}</td>
+                    <td class="text-right">{{ item.Mar | number : 2 }}</td>
+                    <td class="text-right">{{ item.Apr | number : 2 }}</td>
+                    <td class="text-right">{{ item.May | number : 2 }}</td>
+                    <td class="text-right">{{ item.Jun | number : 2 }}</td>
+                    <td class="text-right">{{ item.Jul | number : 2 }}</td>
+                    <td class="text-right">{{ item.Aug | number : 2 }}</td>
+                    <td class="text-right">{{ item.Sep | number : 2 }}</td>
+                    <td class="text-right">{{ item.Oct | number : 2 }}</td>
+                    <td class="text-right">{{ item.Nov | number : 2 }}</td>
+                    <td class="text-right">{{ item.Dec | number : 2 }}</td>
+                    <td class="text-right">
+                        {{ item.Total | number : 2 }}
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>TOTAL COST</td>
+                    <td class="text-right">{{ getActualExpenseTotal(null, 1) | number : 2 }}</td>
+                    <td class="text-right">{{ getActualExpenseTotal(null, 2) | number : 2 }}</td>
+                    <td class="text-right">{{ getActualExpenseTotal(null, 3) | number : 2 }}</td>
+                    <td class="text-right">{{ getActualExpenseTotal(null, 4) | number : 2 }}</td>
+                    <td class="text-right">{{ getActualExpenseTotal(null, 5) | number : 2 }}</td>
+                    <td class="text-right">{{ getActualExpenseTotal(null, 6) | number : 2 }}</td>
+                    <td class="text-right">{{ getActualExpenseTotal(null, 7) | number : 2 }}</td>
+                    <td class="text-right">{{ getActualExpenseTotal(null, 8) | number : 2 }}</td>
+                    <td class="text-right">{{ getActualExpenseTotal(null, 9) | number : 2 }}</td>
+                    <td class="text-right">{{ getActualExpenseTotal(null, 10) | number : 2 }}</td>
+                    <td class="text-right">{{ getActualExpenseTotal(null, 11) | number : 2 }}</td>
+                    <td class="text-right">{{ getActualExpenseTotal(null, 12) | number : 2 }}</td>
+                    <td class="text-right">{{ getActualExpenseTotal(null, null) | number : 2 }}</td>
+                </tr>
+                <tr>
+                    <td>CUMULATIVE COST</td>
+                    <td class="text-right">{{ getCumulativeActualExpenseTotal(null, 1) | number : 2 }}</td>
+                    <td class="text-right">{{ getCumulativeActualExpenseTotal(null, 2) | number : 2 }}</td>
+                    <td class="text-right">{{ getCumulativeActualExpenseTotal(null, 3) | number : 2 }}</td>
+                    <td class="text-right">{{ getCumulativeActualExpenseTotal(null, 4) | number : 2 }}</td>
+                    <td class="text-right">{{ getCumulativeActualExpenseTotal(null, 5) | number : 2 }}</td>
+                    <td class="text-right">{{ getCumulativeActualExpenseTotal(null, 6) | number : 2 }}</td>
+                    <td class="text-right">{{ getCumulativeActualExpenseTotal(null, 7) | number : 2 }}</td>
+                    <td class="text-right">{{ getCumulativeActualExpenseTotal(null, 8) | number : 2 }}</td>
+                    <td class="text-right">{{ getCumulativeActualExpenseTotal(null, 9) | number : 2 }}</td>
+                    <td class="text-right">{{ getCumulativeActualExpenseTotal(null, 10) | number : 2 }}</td>
+                    <td class="text-right">{{ getCumulativeActualExpenseTotal(null, 11) | number : 2 }}</td>
+                    <td class="text-right">{{ getCumulativeActualExpenseTotal(null, 12) | number : 2 }}</td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

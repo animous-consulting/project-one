@@ -28,7 +28,7 @@ namespace PengKep.Repositories
             var approval = this.Get(includeProperties: "ApprovalStatus, OrganizationUnit").Where(w => w.OrganizationUnitID == organizationUnitId && w.Year == year && w.Month == month).SingleOrDefault();
             if (approval == null)
             {
-                var organizationUnitChildrenIDs = organizationUnitRepository.GetOrganizationUnitChildren(organizationUnitId, null).Select(s => s.OrganizationUnitID);
+                var organizationUnitChildrenIDs = organizationUnitRepository.GetOrganizationUnitChildren(organizationUnitId).Select(s => s.OrganizationUnitID);
                 if ( this.Get().Where(w => organizationUnitChildrenIDs.Contains(w.OrganizationUnitID) && w.Year == year && w.Month == month).Select(s => s.ApprovalStatusID).Distinct().Count() == 1)
                 {
                     approval = this.Get(includeProperties: "ApprovalStatus").Where(w => organizationUnitChildrenIDs.Contains(w.OrganizationUnitID) && w.Year == year && w.Month == month).FirstOrDefault();

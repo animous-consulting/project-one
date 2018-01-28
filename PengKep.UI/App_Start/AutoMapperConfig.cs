@@ -19,11 +19,10 @@ namespace PengKep
                 cfg.CreateMap<ApprovalAction, ApprovalActionViewModel>();
                 cfg.CreateMap<ApprovalStatus, ApprovalStatusViewModel>();
                 cfg.CreateMap<ApprovalHistory, ApprovalHistoryViewModel>();
-                cfg.CreateMap<Company, CompanyViewModel>();
                 cfg.CreateMap<ExpenseCategory, ExpenseCategoryViewModel>();
                 cfg.CreateMap<Expense, ExpenseViewModel>();
                 cfg.CreateMap<OrganizationUnit, OrganizationUnitViewModel>();
-                cfg.CreateMap<PMExpense, PMExpenseViewModel>();
+                cfg.CreateMap<ActualExpense, ActualExpenseViewModel>();
                 cfg.CreateMap<ApplicationUser, ApplicationUserViewModel>();
 
                 cfg.CreateMap<IdentityUserRole, ApplicationUserRoleViewModel>();

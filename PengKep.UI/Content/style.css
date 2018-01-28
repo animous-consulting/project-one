@@ -1,8 +1,24 @@
 ﻿body {
-    min-height: 2000px;
     padding-top: 70px; /* for fixed top nav */
 }
 
 .alert {
     white-space: pre;
+}
+
+.navbox tr td,
+.navbox tr:last-child td:last-child {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+.navbox tr td:last-child {
+    padding: 5px;
+    width: 200px;
+    background-color: white;
+}
+
+.navbox tr td:last-child > span {
+    padding: 0 10px;
 }

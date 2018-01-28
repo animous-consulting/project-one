@@ -61,7 +61,6 @@
     <Compile Include="ApprovalHistoryRepository.cs" />
     <Compile Include="ApprovalRepository.cs" />
     <Compile Include="ApprovalStatusRepository.cs" />
-    <Compile Include="CompanyRepository.cs" />
     <Compile Include="ConfigRepository.cs" />
     <Compile Include="DBContext.cs" />
     <Compile Include="ErrorLogRepository.cs" />
@@ -73,7 +72,7 @@
     <Compile Include="Migrations\MySqlHistoryContext.cs" />
     <Compile Include="Migrations\MySqlInitializer.cs" />
     <Compile Include="OrganizationUnitRepository.cs" />
-    <Compile Include="PMExpenseRepository.cs" />
+    <Compile Include="ActualExpenseRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>

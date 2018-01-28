@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PengKep.ViewModels
 {
-    public class PMExpenseViewModel
+    public class ActualExpenseViewModel
     {
         [Display(Name = "Organization Unit ID")]
         public string OrganizationUnitID { get; set; }

@@ -18,5 +18,7 @@ namespace PengKep.ViewModels
         [Display(Name = "Organization Unit Display Order")]
         public int? OrganizationUnitDisplayOrder { get; set; }
 
+        public string IsActive { get; set; }
+
     }
 }

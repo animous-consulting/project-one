@@ -89,7 +89,6 @@
     <Compile Include="ApprovalAction.cs" />
     <Compile Include="ApprovalHistory.cs" />
     <Compile Include="ApprovalStatus.cs" />
-    <Compile Include="Company.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="ErrorLog.cs" />
     <Compile Include="Expense.cs" />
@@ -97,7 +96,7 @@
     <Compile Include="Identity\ApplicationRole.cs" />
     <Compile Include="Identity\ApplicationUser.cs" />
     <Compile Include="OrganizationUnit.cs" />
-    <Compile Include="PMExpense.cs" />
+    <Compile Include="ActualExpense.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

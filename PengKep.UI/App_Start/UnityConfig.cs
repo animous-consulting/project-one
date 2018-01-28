@@ -70,13 +70,12 @@ namespace PengKep
             container.RegisterType<IApprovalHistoryRepository, ApprovalHistoryRepository>();
             container.RegisterType<IApprovalRepository, ApprovalRepository>();
             container.RegisterType<IApprovalStatusRepository, ApprovalStatusRepository>();
-            container.RegisterType<ICompanyRepository, CompanyRepository>();
             container.RegisterType<IConfigRepository, ConfigRepository>();
             container.RegisterType<IErrorLogRepository, ErrorLogRepository>();
             container.RegisterType<IExpenseCategoryRepository, ExpenseCategoryRepository>();
             container.RegisterType<IExpenseRepository, ExpenseRepository>();
             container.RegisterType<IOrganizationUnitRepository, OrganizationUnitRepository>();
-            container.RegisterType<IPMExpenseRepository, PMExpenseRepository>();
+            container.RegisterType<IActualExpenseRepository, ActualExpenseRepository>();
 
         }
     }

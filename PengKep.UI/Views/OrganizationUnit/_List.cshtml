@@ -1,0 +1,7 @@
+﻿<td>{{ item.OrganizationUnitName }}</td>
+<td>{{ item.OrganizationUnitID }}</td>
+<td>{{ getOrganizationUnitName(item.OrganizationUnitParentID) }}</td>
+<td>{{ item.IsActive }}</td>
+<td class="text-center" style="width: 60px; padding-top: 1px">
+    <button class="btn btn-default btn-xs" data-ng-click="editItem(item)" title="Edit" data-ng-disabled="isSaving"><i class="glyphicon glyphicon-edit text-muted"></i>&nbsp;Edit</button>
+</td>

@@ -29,11 +29,6 @@ namespace PengKep.BusinessEntities
         [Display(Name = "Organization Unit Display Order")]
         public int? OrganizationUnitDisplayOrder { get; set; }
 
-        [Column("company_tag")]
-        [Display(Name = "Company Tag")]
-        [MaxLength(500)]
-        public string CompanyTag { get; set; }
-
         [Column("is_active")]
         [Display(Name = "Is Active")]
         [MaxLength(1)]

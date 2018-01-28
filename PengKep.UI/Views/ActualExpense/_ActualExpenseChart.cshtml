@@ -1,0 +1,8 @@
+﻿<div class="col-md-8 col-md-offset-2">
+    <div class="text-center" style="margin: 100px 0px" data-ng-show="isChartLoading && !chartData">
+        <img src="@Url.Content("~/Images/ajax-loader.gif")" alt="" />
+    </div>
+    <div style="margin: 100px auto 50px" data-ng-hide="isChartLoading && !chartData">
+        <canvas id="base" class="chart-bar" chart-data="chartData" chart-labels="chartLabels" chart-series="chartSeries" chart-options="chartOptions" chart-colors="chartColors" chart-dataset-override="datasetOverride"></canvas>
+    </div>
+</div>

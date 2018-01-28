@@ -13,15 +13,12 @@ namespace PengKep.Repositories
     public class OrganizationUnitRepository : GenericRepository<OrganizationUnit>, IOrganizationUnitRepository
     {
 
-        private ICompanyRepository companyRepository;
         private UserManager<ApplicationUser> userManager;
 
         public OrganizationUnitRepository(DBContext context,
-            ICompanyRepository companyRepository,
             UserManager<ApplicationUser> userManager)
             : base(context)
         {
-            this.companyRepository = companyRepository;
             this.userManager = userManager;
         }
 
@@ -29,14 +26,14 @@ namespace PengKep.Repositories
         {
             List<OrganizationUnit> accessibleOrganizationUnits = new List<OrganizationUnit>();
             var user = userManager.FindByEmail(userId);
-            if (user != null && (user.LockoutEnabled == false || user.LockoutEndDateUtc < DateTime.UtcNow))
+            if (user != null)
             {
 
                 var userRoleIDs = user.Roles.Select(s => s.RoleId).ToList();
                 var allOrganizationUnits = this.Get().Where(w => w.IsActive == "Y").ToList();
 
-                var accessibleOrganizationUnitIDs = this.Get().Where(w => userRoleIDs.Contains(w.OrganizationUnitID) || userRoleIDs.Contains(ApplicationConstants.roleIDAdministrator) && w.IsActive == "Y").Select(s => s.OrganizationUnitID).ToList();
-                var accessibleCompanyIDs = companyRepository.GetAccessibleCompanies(userId).Select(s => s.CompanyID).ToList();
+                //var accessibleOrganizationUnitIDs = this.Get().Where(w => userRoleIDs.Contains(w.OrganizationUnitID) || userRoleIDs.Contains(ApplicationConstants.roleIDAdministrator) && w.IsActive == "Y").Select(s => s.OrganizationUnitID).ToList();
+                var accessibleOrganizationUnitIDs = allOrganizationUnits.Select(s => s.OrganizationUnitID).ToList();
 
                 char[] spliter = new char[] { ';' };
 
@@ -44,15 +41,13 @@ namespace PengKep.Repositories
                 while (
                     (from q in allOrganizationUnits
                      where accessibleOrganizationUnitIDs.Contains(q.OrganizationUnitParentID) &&
-                     !accessibleOrganizationUnitIDs.Contains(q.OrganizationUnitID) &&
-                     accessibleCompanyIDs.Intersect(q.CompanyTag.Split(spliter)).Any()
+                     !accessibleOrganizationUnitIDs.Contains(q.OrganizationUnitID)
                      select q.OrganizationUnitID).Any())
                 {
                     accessibleOrganizationUnitIDs = accessibleOrganizationUnitIDs.Union(
                             (from q in allOrganizationUnits
                              where accessibleOrganizationUnitIDs.Contains(q.OrganizationUnitParentID) &&
-                             !accessibleOrganizationUnitIDs.Contains(q.OrganizationUnitID) &&
-                             accessibleCompanyIDs.Intersect(q.CompanyTag.Split(spliter)).Any()
+                             !accessibleOrganizationUnitIDs.Contains(q.OrganizationUnitID)
                              select q.OrganizationUnitID).ToList()
                         ).ToList();
                 }
@@ -66,7 +61,7 @@ namespace PengKep.Repositories
             return accessibleOrganizationUnits.ToList();
         }
 
-        public List<OrganizationUnit> GetOrganizationUnitChildren(string organizationUnitId, List<string> companyIDs)
+        public List<OrganizationUnit> GetOrganizationUnitChildren(string organizationUnitId)
         {
             var children =
                 (from q in this.Get()
@@ -77,13 +72,12 @@ namespace PengKep.Repositories
 
             children =
                 (from q in children
-                 where companyIDs != null && companyIDs.Intersect(q.CompanyTag.Split(spliter)).Any()
                  select q).ToList();
 
             return children;
         }
 
-        public List<OrganizationUnit> GetAllOrganizationUnitChildren(string organizationUnitId, List<string> companyIDs, int? maxLevel = null)
+        public List<OrganizationUnit> GetAllOrganizationUnitChildren(string organizationUnitId, int? maxLevel = null)
         {
             var organizationUnits = this.Get().ToList();
 
@@ -91,8 +85,6 @@ namespace PengKep.Repositories
                 (from q in this.Get()
                  where q.IsActive == "Y"
                  select q).ToList();
-
-            if (companyIDs == null) companyIDs = new List<string>();
 
             //List<OrganizationUnit> children = new List<OrganizationUnit>();
             //PopulateChildren(organizationUnits, organizationUnitId, ref children, companyId);
@@ -105,15 +97,13 @@ namespace PengKep.Repositories
             while (
                 (from q in allOrganizationUnitIDs
                  where organizationUnitIDs.Contains(q.OrganizationUnitParentID) &&
-                 !organizationUnitIDs.Contains(q.OrganizationUnitID) &&
-                 companyIDs.Intersect(q.CompanyTag.Split(spliter)).Any()
+                 !organizationUnitIDs.Contains(q.OrganizationUnitID)
                  select q.OrganizationUnitID).Any())
             {
                 organizationUnitIDs = organizationUnitIDs.Union(
                         (from q in allOrganizationUnitIDs
                          where organizationUnitIDs.Contains(q.OrganizationUnitParentID) &&
-                         !organizationUnitIDs.Contains(q.OrganizationUnitID) &&
-                         companyIDs.Intersect(q.CompanyTag.Split(spliter)).Any()
+                         !organizationUnitIDs.Contains(q.OrganizationUnitID)
                          select q.OrganizationUnitID).ToList()
                     ).ToList();
                 if (maxLevel != null && level >= maxLevel) break;
@@ -135,11 +125,10 @@ namespace PengKep.Repositories
         {
             var displayOrder = 0;
             var displayLevel = 1;
-            var orderedOrganizationUnits = organizationUnits;
+            var arrOrderedOrganizationUnits = organizationUnits.ToArray();
+            var orderedOrganizationUnits = arrOrderedOrganizationUnits.ToList();
             var toporganizationUnits = orderedOrganizationUnits.Where(w => orderedOrganizationUnits.Any(a => a.OrganizationUnitID == w.OrganizationUnitParentID) == false)
                 .OrderByDescending(o => orderedOrganizationUnits.Any(a => a.OrganizationUnitParentID == o.OrganizationUnitID))
-                .ThenByDescending(o => o.CompanyTag != null ? o.CompanyTag.Length : 100)
-                .ThenBy(t => t.CompanyTag)
                 .ThenBy(o => o.OrganizationUnitName)
                 .ToList();
             foreach (var item in toporganizationUnits)
@@ -155,8 +144,6 @@ namespace PengKep.Repositories
         {
             var childrenOrganizationUnit = organizationUnits.Where(w => w.OrganizationUnitParentID == organizationUnit.OrganizationUnitID)
                 .OrderByDescending(o => organizationUnits.Any(a => a.OrganizationUnitParentID == o.OrganizationUnitID))
-                .ThenByDescending(o => o.CompanyTag != null ? o.CompanyTag.Length : 100)
-                .ThenBy(t => t.CompanyTag)
                 .ThenBy(o => o.OrganizationUnitName)
                 .ToList();
             if (childrenOrganizationUnit != null)
@@ -171,40 +158,45 @@ namespace PengKep.Repositories
             }
         }
 
-        private void PopulateChildren(List<OrganizationUnit> organizationUnits, string organizationUnitId, ref List<OrganizationUnit> children, string companyId)
+        public dynamic GetOrganizationUnitTreeData(string userId)
         {
-            if (organizationUnits.Any(a => a.OrganizationUnitParentID == organizationUnitId &&
-            (String.IsNullOrEmpty(companyId) || (!String.IsNullOrEmpty(companyId) && a.CompanyTag.Contains(companyId)))
-            && a.IsActive == "Y"))
+            // accessed globally
+            var accessibleOrganizationUnits = this.GetAccessibleOrganizationUnit(userId);
+            this.ReorderByHierarchy(ref accessibleOrganizationUnits, false);
+
+            List<OrganizationUnit> topLevelOrganizationUnits =
+                (from q in accessibleOrganizationUnits
+                 where !accessibleOrganizationUnits.Any(a => a.OrganizationUnitID == q.OrganizationUnitParentID)
+                 orderby q.OrganizationUnitName
+                 select q).ToList();
+
+            List<dynamic> organizationUnitTreeData = new List<dynamic>();
+            if (topLevelOrganizationUnits != null && topLevelOrganizationUnits.Count() > 0)
             {
-                foreach (var item in organizationUnits.Where(w => w.OrganizationUnitParentID == organizationUnitId &&
-                (String.IsNullOrEmpty(companyId) || (!String.IsNullOrEmpty(companyId) && w.CompanyTag.Contains(companyId)))
-                && w.IsActive == "Y").ToList())
+                foreach (var item in topLevelOrganizationUnits)
                 {
-                    if (!children.Any(a => a.OrganizationUnitID == item.OrganizationUnitID))
-                    {
-                        children.Add(item);
-                    }
-                    PopulateChildren(organizationUnits, item.OrganizationUnitID, ref children, companyId);
+                    organizationUnitTreeData.Add(new { data = item.OrganizationUnitID, label = item.OrganizationUnitName, children = GetOrganizationUnitTreeDataChildren(accessibleOrganizationUnits, item.OrganizationUnitID) });
                 }
             }
+            return organizationUnitTreeData;
         }
 
-        private void PopulateLeafChildren(List<OrganizationUnit> organizationUnits, string organizationUnitId, ref List<OrganizationUnit> children, string companyId)
+        private List<dynamic> GetOrganizationUnitTreeDataChildren(List<OrganizationUnit> organizationUnits, string organizationUnitId)
         {
-            if (organizationUnits.Any(a => a.OrganizationUnitParentID == organizationUnitId &&
-            (String.IsNullOrEmpty(companyId) || (!String.IsNullOrEmpty(companyId) && a.CompanyTag.Contains(companyId)))
-            && a.IsActive == "Y"))
+            List<dynamic> returnValue = new List<dynamic>();
+            var children = organizationUnits.Where(w => w.OrganizationUnitParentID == organizationUnitId);
+            foreach (var item in children)
             {
-                foreach (var item in organizationUnits.Where(w => w.OrganizationUnitParentID == organizationUnitId && w.IsActive == "Y").ToList())
+                if (!organizationUnits.Any(a => a.OrganizationUnitParentID == item.OrganizationUnitID))
                 {
-                    if (this.IsLeaf(item.OrganizationUnitID) && !children.Any(a => a.OrganizationUnitID == item.OrganizationUnitID))
-                    {
-                        children.Add(item);
-                    }
-                    PopulateLeafChildren(organizationUnits, item.OrganizationUnitID, ref children, companyId);
+                    returnValue.Add(new { data = item.OrganizationUnitID, label = item.OrganizationUnitName.Trim() });
+                }
+                else
+                {
+                    returnValue.Add(new { data = item.OrganizationUnitID, label = item.OrganizationUnitName.Trim(), children = GetOrganizationUnitTreeDataChildren(organizationUnits, item.OrganizationUnitID) });
                 }
             }
+            return returnValue;
         }
     }
 }

@@ -1,0 +1,111 @@
+﻿@using PengKep.Common.Constants;
+@model PengKep.ViewModels.ActualExpenseDisplayViewModel
+
+@{
+    bool isEditable = (ViewBag.IsEditable != null ? (bool)ViewBag.IsEditable : false);
+    var year = ViewBag.Year;
+}
+
+<div class="col-md-12">
+    <div data-ng-hide="isEditingActualExpense">
+        <div class="panel panel-default">
+            <div class="panel-heading" style="padding: 5px">
+                @if (isEditable)
+            {
+                using (Html.BeginForm("PopulateActualExpenseData", "ActualExpense", new {  OrganizationUnitId = ViewBag.OrganizationUnitID, year = ViewBag.Year }, FormMethod.Post, null))
+                {
+                        @Html.AntiForgeryToken()
+                        <button class="btn btn-success btn-sm" type="submit" data-ng-click="isRefreshing = true" data-ng-disabled="isRefreshing"><i class="glyphicon glyphicon-refresh"></i>&nbsp;{{ isRefreshing ? 'Refreshing..' : 'Refresh @year data' }}</button>
+                    }
+                }
+            </div>
+            <div style="overflow: auto">
+                <table class="table table-bordered table-condensed table-primary">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>E-LVL</th>
+                            <th style="min-width: 200px">@Html.LabelFor(model => Model.ActualExpense.FirstOrDefault().Expense.ExpenseName)</th>
+                            <th>@Html.LabelFor(model => Model.ActualExpense.FirstOrDefault().Jan)</th>
+                            <th>@Html.LabelFor(model => Model.ActualExpense.FirstOrDefault().Feb)</th>
+                            <th>@Html.LabelFor(model => Model.ActualExpense.FirstOrDefault().Mar)</th>
+                            <th>@Html.LabelFor(model => Model.ActualExpense.FirstOrDefault().Apr)</th>
+                            <th>@Html.LabelFor(model => Model.ActualExpense.FirstOrDefault().May)</th>
+                            <th>@Html.LabelFor(model => Model.ActualExpense.FirstOrDefault().Jun)</th>
+                            <th>@Html.LabelFor(model => Model.ActualExpense.FirstOrDefault().Jul)</th>
+                            <th>@Html.LabelFor(model => Model.ActualExpense.FirstOrDefault().Aug)</th>
+                            <th>@Html.LabelFor(model => Model.ActualExpense.FirstOrDefault().Sep)</th>
+                            <th>@Html.LabelFor(model => Model.ActualExpense.FirstOrDefault().Oct)</th>
+                            <th>@Html.LabelFor(model => Model.ActualExpense.FirstOrDefault().Nov)</th>
+                            <th>@Html.LabelFor(model => Model.ActualExpense.FirstOrDefault().Dec)</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-show="model.ActualExpense.length == 0 || !model">
+                            <td class="text-center" colspan="16">- no item -</td>
+                        </tr>
+                        <tr data-ng-repeat-start="category in expenseCategories | orderBy: 'DisplayOrder'"></tr>
+                        <tr data-ng-repeat="item in filteredModel = (model.ActualExpense | filter: {  ExpenseCategoryID : category.ExpenseCategoryID })">
+                            @Html.Partial("_List_ActualExpense")
+                        </tr>
+                        <tr class="total">
+                            <td colspan="3">{{ category.ExpenseCategoryName }} Cost</td>
+                            <td class="text-right">{{ getActualExpenseTotal(category.ExpenseCategoryID, 1) | number : 2 }}</td>
+                            <td class="text-right">{{ getActualExpenseTotal(category.ExpenseCategoryID, 2) | number : 2 }}</td>
+                            <td class="text-right">{{ getActualExpenseTotal(category.ExpenseCategoryID, 3) | number : 2 }}</td>
+                            <td class="text-right">{{ getActualExpenseTotal(category.ExpenseCategoryID, 4) | number : 2 }}</td>
+                            <td class="text-right">{{ getActualExpenseTotal(category.ExpenseCategoryID, 5) | number : 2 }}</td>
+                            <td class="text-right">{{ getActualExpenseTotal(category.ExpenseCategoryID, 6) | number : 2 }}</td>
+                            <td class="text-right">{{ getActualExpenseTotal(category.ExpenseCategoryID, 7) | number : 2 }}</td>
+                            <td class="text-right">{{ getActualExpenseTotal(category.ExpenseCategoryID, 8) | number : 2 }}</td>
+                            <td class="text-right">{{ getActualExpenseTotal(category.ExpenseCategoryID, 9) | number : 2 }}</td>
+                            <td class="text-right">{{ getActualExpenseTotal(category.ExpenseCategoryID, 10) | number : 2 }}</td>
+                            <td class="text-right">{{ getActualExpenseTotal(category.ExpenseCategoryID, 11) | number : 2 }}</td>
+                            <td class="text-right">{{ getActualExpenseTotal(category.ExpenseCategoryID, 12) | number : 2 }}</td>
+                            <td class="text-right">{{ getActualExpenseTotal(category.ExpenseCategoryID, null) | number : 2 }}</td>
+                        </tr>
+                        <tr data-ng-repeat-end></tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3">TOTAL COST</td>
+                            <td class="text-right">{{ getActualExpenseTotal(null, 1) | number : 2 }}</td>
+                            <td class="text-right">{{ getActualExpenseTotal(null, 2) | number : 2 }}</td>
+                            <td class="text-right">{{ getActualExpenseTotal(null, 3) | number : 2 }}</td>
+                            <td class="text-right">{{ getActualExpenseTotal(null, 4) | number : 2 }}</td>
+                            <td class="text-right">{{ getActualExpenseTotal(null, 5) | number : 2 }}</td>
+                            <td class="text-right">{{ getActualExpenseTotal(null, 6) | number : 2 }}</td>
+                            <td class="text-right">{{ getActualExpenseTotal(null, 7) | number : 2 }}</td>
+                            <td class="text-right">{{ getActualExpenseTotal(null, 8) | number : 2 }}</td>
+                            <td class="text-right">{{ getActualExpenseTotal(null, 9) | number : 2 }}</td>
+                            <td class="text-right">{{ getActualExpenseTotal(null, 10) | number : 2 }}</td>
+                            <td class="text-right">{{ getActualExpenseTotal(null, 11) | number : 2 }}</td>
+                            <td class="text-right">{{ getActualExpenseTotal(null, 12) | number : 2 }}</td>
+                            <td class="text-right">{{ getActualExpenseTotal(null, null) | number : 2 }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">CUMULATIVE COST</td>
+                            <td class="text-right">{{ getCumulativeActualExpenseTotal(null, 1) | number : 2 }}</td>
+                            <td class="text-right">{{ getCumulativeActualExpenseTotal(null, 2) | number : 2 }}</td>
+                            <td class="text-right">{{ getCumulativeActualExpenseTotal(null, 3) | number : 2 }}</td>
+                            <td class="text-right">{{ getCumulativeActualExpenseTotal(null, 4) | number : 2 }}</td>
+                            <td class="text-right">{{ getCumulativeActualExpenseTotal(null, 5) | number : 2 }}</td>
+                            <td class="text-right">{{ getCumulativeActualExpenseTotal(null, 6) | number : 2 }}</td>
+                            <td class="text-right">{{ getCumulativeActualExpenseTotal(null, 7) | number : 2 }}</td>
+                            <td class="text-right">{{ getCumulativeActualExpenseTotal(null, 8) | number : 2 }}</td>
+                            <td class="text-right">{{ getCumulativeActualExpenseTotal(null, 9) | number : 2 }}</td>
+                            <td class="text-right">{{ getCumulativeActualExpenseTotal(null, 10) | number : 2 }}</td>
+                            <td class="text-right">{{ getCumulativeActualExpenseTotal(null, 11) | number : 2 }}</td>
+                            <td class="text-right">{{ getCumulativeActualExpenseTotal(null, 12) | number : 2 }}</td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="panel-footer">
+                {{ model.ActualExpense.length }} item(s)
+            </div>
+        </div>
+    </div>
+</div>

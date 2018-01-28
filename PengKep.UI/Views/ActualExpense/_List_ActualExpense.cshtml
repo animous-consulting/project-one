@@ -1,0 +1,22 @@
+﻿@using PengKep.Common.Constants
+
+<td data-ng-if="$index == 0" rowspan="{{ filteredModel.length }}">{{ category.ExpenseCategoryName }}</td>
+<td>{{ item.ExpenseID }}</td>
+<td style="min-width: 110px">
+    <a data-ng-click="getActualExpenseDetail(item.ExpenseID, category.ExpenseCategoryID)" style="cursor: pointer">{{ item.Expense.ExpenseName }}</a>
+</td>
+<td class="text-right">{{ item.Jan | number : 2 }}</td>
+<td class="text-right">{{ item.Feb | number : 2 }}</td>
+<td class="text-right">{{ item.Mar | number : 2 }}</td>
+<td class="text-right">{{ item.Apr | number : 2 }}</td>
+<td class="text-right">{{ item.May | number : 2 }}</td>
+<td class="text-right">{{ item.Jun | number : 2 }}</td>
+<td class="text-right">{{ item.Jul | number : 2 }}</td>
+<td class="text-right">{{ item.Aug | number : 2 }}</td>
+<td class="text-right">{{ item.Sep | number : 2 }}</td>
+<td class="text-right">{{ item.Oct | number : 2 }}</td>
+<td class="text-right">{{ item.Nov | number : 2 }}</td>
+<td class="text-right">{{ item.Dec | number : 2 }}</td>
+<td class="text-right">
+    {{ item.Total | number : 2 }}
+</td>

@@ -7,17 +7,19 @@
 }
 
 @section headContent {
-    <link href="@Url.Content("~/Content/angular-csp.min.css")" rel="stylesheet" type="text/javascript" />
+    <link href="@Url.Content("~/Content/angular-csp.min.css")" rel="stylesheet" type="text/css" />
 }
 
-<div class="row" data-ng-app="app" data-ng-controller="userManagementController" @Html.RequestVerificationToken() data-ng-cloak>
+<div class="page-header">
+    <h3>User Management</h3>
+</div>
+
+<div class="row" ng-app="app" ng-controller="userManagementController" @Html.RequestVerificationToken() ng-cloak>
     <div class="col-md-12">
-        <div style="margin-bottom: 5px">
-            <button class="btn btn-sm btn-primary" data-ng-click="addItem()"><i class="glyphicon glyphicon-plus"></i>&nbsp;Create</button>
-        </div>
+        <button class="btn btn-success btn-sm" ng-click="addItem()" style="margin-bottom: 5px"><i class="glyphicon glyphicon-plus"></i>&nbsp;Create</button>
     </div>
     <div class="col-md-12">
-        <table class="table table-bordered table-condensed">
+        <table class="table table-bordered table-condensed table-primary">
             <thead>
                 <tr>
                     <th>@Html.LabelFor(m => Model.FirstOrDefault().UserName)</th>
@@ -25,7 +27,7 @@
                     <th>@Html.LabelFor(m => Model.FirstOrDefault().EmailConfirmed)</th>
                     <th>@Html.LabelFor(m => Model.FirstOrDefault().PhoneNumber)</th>
                     <th>@Html.LabelFor(m => Model.FirstOrDefault().PhoneNumberConfirmed)</th>
-                    <th>@Html.LabelFor(m => Model.FirstOrDefault().Roles.FirstOrDefault().RoleId)</th>
+                    <th>@Html.LabelFor(m => Model.FirstOrDefault().Roles)</th>
                     <th></th>
                 </tr>
             </thead>
@@ -36,7 +38,7 @@
                     <td>{{ item.EmailConfirmed }}</td>
                     <td>{{ item.PhoneNumber }}</td>
                     <td>{{ item.PhoneNumberConfirmed }}</td>
-                    <td></td>
+                    <td>{{ getRoleNames(item.Roles) }}</td>
                     <td class="text-center">
                         <button class="btn btn-default btn-xs" data-ng-click="editItem(item)" title="Edit" data-ng-disabled="isSaving"><i class="glyphicon glyphicon-edit text-muted"></i>&nbsp;Edit</button>
                     </td>
@@ -47,7 +49,6 @@
 
     @Html.Partial("_Modal_Create", new PengKep.ViewModels.RegisterViewModel())
     @Html.Partial("_Modal_Edit", new PengKep.BusinessEntities.ApplicationUser())
-
 
 </div>
 

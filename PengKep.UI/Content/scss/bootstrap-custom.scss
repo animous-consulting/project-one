@@ -2,35 +2,97 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic|Lora:400,400italic,700,700italic|Raleway:400,300,700);
 $font-family-base: 'Open Sans', 'Raleway', sans-serif;*/
 
-$font-family-sans-serif:  Helvetica, Arial, sans-serif !default;
+$brand-primary: darken(#4bb6bd, 8%) !default; // #337ab7
+$brand-success: #58b06f !default;
+$brand-info: #54b3cf !default;
+$brand-warning: #e9a545 !default;
+$brand-danger: #d94141 !default
 
-$gray-base:              #000 !default;
-$gray-darker:            lighten($gray-base, 11%) !default; // #222
-$gray-dark:              lighten($gray-base, 20%) !default;   // #333
-$gray:                   lighten($gray-base, 30%) !default; // #555
-$gray-light:             lighten($gray-base, 40%) !default; // #777
-$gray-lighter:           lighten($gray-base, 87%) !default; // #eee
+$font-family-sans-serif: Helvetica, Arial, sans-serif !default;
 
-$nav-tabs-border-color:                     $gray-lighter !default;
+$gray-base: #000 !default;
+$gray-darker: lighten($gray-base, 11%) !default; // #222
+$gray-dark: lighten($gray-base, 20%) !default; // #333
+$gray: lighten($gray-base, 30%) !default; // #555
+$gray-light: lighten($gray-base, 40%) !default; // #777
+$gray-lighter: lighten($gray-base, 87%) !default; // #eee
 
-$nav-tabs-link-hover-border-color:          $gray-lighter !default;
+$nav-tabs-border-color: $gray-lighter !default;
+
+$nav-tabs-link-hover-border-color: $gray-lighter !default;
 
 $font-family-base: $font-family-sans-serif !default;
 $icon-font-path: "./fonts/" !default;
 $font-size-base: 13px !default;
 $text-color: #526172 !default;
 
-$padding-base-vertical:     4px !default;
-$padding-base-horizontal:   10px !default;
+$padding-base-vertical: 4px !default;
+$padding-base-horizontal: 10px !default;
 
-$padding-large-vertical:    8px !default;
-$padding-large-horizontal:  14px !default;
+$padding-large-vertical: 8px !default;
+$padding-large-horizontal: 14px !default;
 
-$padding-small-vertical:    3px !default;
-$padding-small-horizontal:  8px !default;
+$padding-small-vertical: 3px !default;
+$padding-small-horizontal: 8px !default;
 
-$padding-xs-vertical:       1px !default;
-$padding-xs-horizontal:     5px !default;
+$padding-xs-vertical: 1px !default;
+$padding-xs-horizontal: 5px !default;
+
+$form-group-margin-bottom: 10px;
+
+$border-radius-base: 2px !default;
+$border-radius-large: 4px !default;
+$border-radius-small: 1px !default;
+
 
 
 @import 'bootstrap';
+
+.page-header {
+
+    padding-bottom: 0px;
+    margin: 20px 0 18px;
+
+    h1, h2, h3, h4, h5 {
+        color: #758390;
+    }
+}
+
+.modal-footer {
+    background-color: #f7f7f7;
+}
+
+.panel .table {
+    margin-bottom: 0px;
+}
+
+@mixin table-variant($table-header-color) {
+    thead th {
+        background-color: $table-header-color;
+        color: lighten($table-header-color, 50%);
+        border-color: lighten($table-header-color, 30%);
+        text-shadow: 1px 1px 1px darken($table-header-color, 10%);
+
+        label {
+            margin-bottom: 0px;
+        }
+    }
+}
+
+.table {
+    &.table-primary {
+        @include table-variant($brand-primary);
+    }
+    &.table-success {
+        @include table-variant($brand-success);
+    }
+    &.table-info {
+        @include table-variant($brand-info);
+    }
+    &.table-warning {
+        @include table-variant($brand-warning);
+    }
+    &.table-danger {
+        @include table-variant($brand-danger);
+    }
+}

@@ -228,13 +228,16 @@
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ManageCompanyController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ActualExpenseController.cs" />
+    <Compile Include="Controllers\OrganizationUnitController.cs" />
     <Compile Include="Controllers\UserManagementController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AntiForgeryExtension.cs" />
+    <Compile Include="Helpers\ApplicationSettings.cs" />
+    <Compile Include="Helpers\BreadcrumbHelper.cs" />
     <Compile Include="Helpers\ValidateCustomAntiForgeryToken.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\ApplicationUserRoleViewModel.cs" />
@@ -245,12 +248,12 @@
     <Compile Include="ViewModels\Mapped\ApprovalHistoryViewModel.cs" />
     <Compile Include="ViewModels\Mapped\ApprovalStatusViewModel.cs" />
     <Compile Include="ViewModels\Mapped\ApprovalViewModel.cs" />
-    <Compile Include="ViewModels\Mapped\CompanyViewModel.cs" />
     <Compile Include="ViewModels\Mapped\ExpenseCategoryViewModel.cs" />
     <Compile Include="ViewModels\Mapped\ExpenseViewModel.cs" />
     <Compile Include="ViewModels\Mapped\OrganizationUnitViewModel.cs" />
-    <Compile Include="ViewModels\Mapped\PMExpenseViewModel.cs" />
+    <Compile Include="ViewModels\Mapped\ActualExpenseViewModel.cs" />
     <Compile Include="ViewModels\Mapped\ApplicationUserViewModel.cs" />
+    <Compile Include="ViewModels\ActualExpenseDisplayViewModel.cs" />
     <Compile Include="ViewModels\RoleViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -286,6 +289,10 @@
     <Content Include="Content\scss\font-awesome-custom.scss" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Chart.min.js" />
+    <Content Include="Scripts\controllers\organizationUnitAndMonthSelectorController.js" />
+    <Content Include="Scripts\controllers\organizationUnitAndYearSelectorController.js" />
+    <Content Include="Scripts\controllers\actualExpenseController.js" />
+    <Content Include="Scripts\controllers\organizationUnitController.js" />
     <Content Include="Scripts\controllers\userManagementController.js" />
     <Content Include="Scripts\elastic.min.js" />
     <Content Include="Scripts\html5shiv.min.js" />
@@ -335,6 +342,18 @@
     <Content Include="Views\ManageCompany\Index.cshtml" />
     <Content Include="Views\UserManagement\_Modal_Create.cshtml" />
     <Content Include="Views\UserManagement\_Modal_Edit.cshtml" />
+    <Content Include="Views\Shared\_OrganizationUnitAndMonthSelector.cshtml" />
+    <Content Include="Views\Shared\_OrganizationUnitAndYearSelector.cshtml" />
+    <Content Include="Views\Shared\_MainNavbar.cshtml" />
+    <Content Include="Views\ActualExpense\Index.cshtml" />
+    <Content Include="Views\ActualExpense\_List_ActualExpense.cshtml" />
+    <Content Include="Views\ActualExpense\_ActualExpense.cshtml" />
+    <Content Include="Views\ActualExpense\_ActualExpenseByOrganizationUnit.cshtml" />
+    <Content Include="Views\ActualExpense\_ActualExpenseChart.cshtml" />
+    <Content Include="Views\OrganizationUnit\Index.cshtml" />
+    <Content Include="Views\OrganizationUnit\_List.cshtml" />
+    <Content Include="Views\OrganizationUnit\_Modal_Create.cshtml" />
+    <Content Include="Views\OrganizationUnit\_Modal_Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
